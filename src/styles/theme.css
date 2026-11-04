@@ -1,0 +1,172 @@
+/* ==========================================================================
+   THEME 
+   ========================================================================== */
+
+
+/* Enables class-based dark mode (toggle by adding/removing .dark on <html>)
+   instead of relying only on prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --------------------------------------------------------------------------
+   1) RAW VARIABLES — light (:root) and dark (.dark) values
+   -------------------------------------------------------------------------- */
+:root {
+  /* Surfaces */
+  --sb-background: #FAF9FA;
+  --sb-foreground: #211C1F;
+
+  --sb-card: #FFFFFF;
+  --sb-card-foreground: #211C1F;
+
+  --sb-popover: #FFFFFF;
+  --sb-popover-foreground: #211C1F;
+
+  /* Brand */
+  --sb-primary: #E63BA6;
+  --sb-primary-foreground: #FEF1F9;
+
+  --sb-secondary: #F6F4F5;
+  --sb-secondary-foreground: #322A2F;
+
+  /* Neutral states */
+  --sb-muted: #E8E3E6;
+  --sb-muted-foreground: #7C6A75;
+
+  --sb-accent: #F9C3E6;
+  --sb-accent-foreground: #7C0E57;
+
+  --sb-destructive: #EF4444;
+  --sb-destructive-foreground: #FEF1F9;
+
+  /* Borders / focus */
+  --sb-border: #D7D0D5;
+  --sb-input: #D7D0D5;
+  --sb-ring: #E63BA6;
+
+  /* Base radius */
+  --sb-radius: 0.625rem;
+}
+
+.dark {
+  /* Surfaces */
+  --sb-background: #131012;
+  --sb-foreground: #FAF9FA;
+
+  --sb-card: #211C1F;
+  --sb-card-foreground: #FAF9FA;
+
+  --sb-popover: #211C1F;
+  --sb-popover-foreground: #FAF9FA;
+
+  /* Brand (unchanged, stands out on dark background) */
+  --sb-primary: #E63BA6;
+  --sb-primary-foreground: #FEF1F9;
+
+  --sb-secondary: #322A2F;
+  --sb-secondary-foreground: #FAF9FA;
+
+  /* Neutral states */
+  --sb-muted: #322A2F;
+  --sb-muted-foreground: #AB9CA5;
+
+  --sb-accent: #7C0E57;
+  --sb-accent-foreground: #FDE3F3;
+
+  --sb-destructive: #DC2626;
+  --sb-destructive-foreground: #FEF1F9;
+
+  /* Borders / focus */
+  --sb-border: #322A2F;
+  --sb-input: #322A2F;
+  --sb-ring: #ED6EBE;
+}
+
+/* --------------------------------------------------------------------------
+   2) @theme — links the raw variables to Tailwind tokens (bg-sb-*, text-sb-*...)
+   -------------------------------------------------------------------------- */
+@theme inline {
+  /* Disable ALL of Tailwind's default colors (gray, red, blue, etc.)
+     From this point on, the only source of colors is the one defined below. */
+  --color-*: initial;
+
+  /* Semantic tokens (change between light/dark) */
+  --color-sb-background: var(--sb-background);
+  --color-sb-foreground: var(--sb-foreground);
+
+  --color-sb-card: var(--sb-card);
+  --color-sb-card-foreground: var(--sb-card-foreground);
+
+  --color-sb-popover: var(--sb-popover);
+  --color-sb-popover-foreground: var(--sb-popover-foreground);
+
+  --color-sb-primary: var(--sb-primary);
+  --color-sb-primary-foreground: var(--sb-primary-foreground);
+
+  --color-sb-secondary: var(--sb-secondary);
+  --color-sb-secondary-foreground: var(--sb-secondary-foreground);
+
+  --color-sb-muted: var(--sb-muted);
+  --color-sb-muted-foreground: var(--sb-muted-foreground);
+
+  --color-sb-accent: var(--sb-accent);
+  --color-sb-accent-foreground: var(--sb-accent-foreground);
+
+  --color-sb-destructive: var(--sb-destructive);
+  --color-sb-destructive-foreground: var(--sb-destructive-foreground);
+
+  --color-sb-border: var(--sb-border);
+  --color-sb-input: var(--sb-input);
+  --color-sb-ring: var(--sb-ring);
+
+  /* Fonts — populated at runtime by the <Font> component (astro.config.mjs) */
+  --font-sb-sans: var(--sb-font-sans);
+  --font-sb-display: var(--sb-font-display);
+  --font-sb-mono: var(--sb-font-mono);
+
+  /* Radius */
+  --radius-sb-sm: calc(var(--sb-radius) - 4px);
+  --radius-sb-md: calc(var(--sb-radius) - 2px);
+  --radius-sb-lg: var(--sb-radius);
+  --radius-sb-xl: calc(var(--sb-radius) + 4px);
+
+  /* Full primary scale (fixed, doesn't change between light/dark) —
+     useful for shades: bg-sb-primary-100, text-sb-primary-700, etc. */
+  --color-sb-primary-50: #FEF1F9;
+  --color-sb-primary-100: #FDE3F3;
+  --color-sb-primary-200: #F9C3E6;
+  --color-sb-primary-300: #F39BD4;
+  --color-sb-primary-400: #ED6EBE;
+  --color-sb-primary-500: #E63BA6;
+  --color-sb-primary-600: #D32292;
+  --color-sb-primary-700: #B31A7D;
+  --color-sb-primary-800: #961268;
+  --color-sb-primary-900: #7C0E57;
+  --color-sb-primary-950: #470631;
+
+  /* Full neutral scale (gray with a slight tint of the seed) */
+  --color-sb-neutral-50: #FAF9FA;
+  --color-sb-neutral-100: #F6F4F5;
+  --color-sb-neutral-200: #E8E3E6;
+  --color-sb-neutral-300: #D7D0D5;
+  --color-sb-neutral-400: #AB9CA5;
+  --color-sb-neutral-500: #7C6A75;
+  --color-sb-neutral-600: #584B53;
+  --color-sb-neutral-700: #453B41;
+  --color-sb-neutral-800: #322A2F;
+  --color-sb-neutral-900: #211C1F;
+  --color-sb-neutral-950: #131012;
+}
+
+/* --------------------------------------------------------------------------
+   3) base styles
+   -------------------------------------------------------------------------- */
+@layer base {
+  * {
+    border-color: var(--color-sb-border);
+    outline-color: color-mix(in oklab, var(--color-sb-ring) 50%, transparent);
+  }
+  body {
+    background-color: var(--color-sb-background);
+    color: var(--color-sb-foreground);
+  }
+}

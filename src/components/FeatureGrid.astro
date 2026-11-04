@@ -1,0 +1,46 @@
+---
+const features = [
+  {
+    title: "content-focused",
+    description: "built for fast static sites",
+    highlighted: false,
+  },
+  {
+    title: "seo-ready",
+    description: "minimal setup, sensible defaults",
+    highlighted: true,
+  },
+  {
+    title: "token-driven theme",
+    description: "light & dark via sb-* tokens",
+    highlighted: false,
+  },
+];
+---
+
+<section class="mx-auto max-w-2xl px-6 pb-20">
+  <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+    {
+      features.map((feature) => (
+        <div
+          class:list={[
+            "rounded-lg border px-4 py-4 text-center hover:bg-sb-primary-950 ",
+            feature.highlighted ? "border-sb-primary" : "border-sb-border",
+          ]}
+        >
+          <p
+            class:list={[
+              "font-mono text-xs font-medium",
+              feature.highlighted ? "text-sb-primary" : "text-sb-foreground",
+            ]}
+          >
+            {feature.title}
+          </p>
+          <p class="mt-1 font-mono text-[11px] text-sb-muted-foreground">
+            {feature.description}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</section>

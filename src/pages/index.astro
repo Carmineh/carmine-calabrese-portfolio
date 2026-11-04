@@ -1,0 +1,1035 @@
+---
+import Layout from "@layouts/Layout.astro";
+// Components
+import SBNavbar from "@components/Navbar.astro";
+---
+
+<Layout title="sb-template-astro — Lascia le configurazioni a noi">
+  <!-- COMPONENT: SiteHeader -->
+  <SBNavbar />
+  <!-- COMPONENT: Hero -->
+  <section class="pt-24 px-0">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div
+        class="flex items-center gap-2.5 sb-eyebrow text-sb-primary mb-6"
+      >
+        <span class="w-[7px] h-[7px] rounded-full bg-sb-primary"></span>
+        <span>astro 7 · tailwind v4 · typescript strict</span>
+      </div>
+
+      <h1 class="max-w-[17ch]">
+        Lascia le configurazioni<br />a <span class="text-sb-primary">noi.</span
+        >
+      </h1>
+
+      <div
+        class="grid grid-cols-1 min-[960px]:grid-cols-2 gap-12 items-end mt-9"
+      >
+        <div>
+          <p
+            class="text-[17.5px] max-w-[42ch] mb-7"
+          >
+            Parti da una base solida e già controllata, e dedica il tuo tempo a
+            quello che conta davvero: le feature del tuo progetto.
+          </p>
+          <div class="flex gap-3.5 flex-wrap">
+            <a
+              href="#iniziare"
+              class="btn-gradient inline-block text-[#FEF1F9] px-6 py-3.5 rounded-full font-extrabold text-[14.5px]"
+              >Inizia ora</a
+            >
+            <a
+              href="#contenuto"
+              class="inline-block border-[1.5px] border-sb-foreground px-6 py-3.5 rounded-full font-bold text-[14.5px]"
+              >Cosa contiene ↓</a
+            >
+          </div>
+        </div>
+
+        <!-- COMPONENT: TerminalWindow (variant: hero install) -->
+        <div class="terminal">
+          <div class="term-bar">
+            <span class="term-dot"></span><span class="term-dot"></span><span
+              class="term-dot"></span>
+            <span class="term-title">zsh — my-project</span>
+          </div>
+          <div class="term-body">
+            <div>
+              <span class="prompt">$</span>
+              <span class="cmd"
+                >pnpm create astro@latest -- --template sb-template-astro</span
+              >
+            </div>
+            <div>
+              <span class="out">✔ Linting e design system configurati</span>
+            </div>
+            <div>
+              <span class="out">✔ TypeScript strict, i18n pronti</span>
+            </div>
+            <div>&nbsp;</div>
+            <div>
+              <span class="prompt">$</span>
+              <span class="cmd">pnpm dev</span>
+            </div>
+            <div>
+              <span class="ok">✔ Server pronto su http://localhost:4321</span
+              ><span class="cursor"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: StackStrip -->
+  <div class="py-15 pt-16 pb-10">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div
+        class="flex justify-center gap-10 flex-wrap text-[12.5px] font-bold text-sb-muted-foreground border-t border-b border-sb-border py-5"
+      >
+        <span>ASTRO 7</span><span>TAILWIND CSS V4</span><span
+          >TYPESCRIPT STRICT</span
+        ><span>PNPM</span><span>I18N READY</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENT: WhatsIncluded (id="contenuto") -->
+  <section id="contenuto" class="py-24">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div
+        class="grid grid-cols-1 min-[900px]:grid-cols-[0.55fr_1fr] gap-12 items-end mb-16"
+      >
+        <h2 class="sb-h2-lg">
+          Cosa contiene<br />il progetto
+        </h2>
+        <p class="text-[16px]">
+          Quattro problemi che normalmente affronti da zero ad ogni nuovo
+          progetto — qui sono già risolti, documentati e pronti da adattare.
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-2 min-[900px]:grid-cols-4 border-t-2 border-sb-foreground"
+      >
+        <div class="p-7 border-r border-b border-sb-border">
+          <span
+            class="block sb-label-mono-sm text-sb-primary mb-3"
+            >01 · linting</span
+          >
+          <h3 class="mb-2.5">
+            Linting già configurato
+          </h3>
+          <p class="text-[13.8px]">
+            Per un'esperienza di sviluppo fluida, con file indentati come si
+            deve e chiari — soprattutto se sul progetto lavora un team.
+          </p>
+        </div>
+        <div
+          class="p-7 border-r border-b border-sb-border max-[900px]:border-r-0"
+        >
+          <span
+            class="block sb-label-mono-sm text-sb-primary mb-3"
+            >02 · i18n</span
+          >
+          <h3 class="mb-2.5">i18n pronto all'uso</h3>
+          <p class="text-[13.8px]">
+            Una configurazione già presente, utile se il progetto prevede di
+            essere distribuito in più lingue.
+          </p>
+        </div>
+        <div class="p-7 border-r border-b border-sb-border">
+          <span
+            class="block sb-label-mono-sm text-sb-primary mb-3"
+            >03 · design system</span
+          >
+          <h3 class="mb-2.5">
+            Tailwind minimale, prefisso <code
+              class="bg-sb-secondary px-1.5 py-0.5 rounded text-[0.9em]"
+              >sb-</code
+            >
+          </h3>
+          <p class="text-[13.8px]">
+            Una configurazione Tailwind essenziale con classi utility marcate <code
+              class="bg-sb-secondary px-1.5 py-0.5 rounded text-[0.9em]"
+              >sb-</code
+            >, modificabile nei file CSS dentro <code
+              class="bg-sb-secondary px-1.5 py-0.5 rounded text-[0.9em]"
+              >styles</code
+            >.
+          </p>
+        </div>
+        <div class="p-7 border-b border-sb-border featured-card text-[#FEF1F9]">
+          <span
+            class="block sb-label-mono-sm mb-3"
+            style="color:#F9C3E6;">04 · componenti</span
+          >
+          <h3 class="mb-2.5">
+            Un set di componenti
+          </h3>
+          <p
+            class="text-[13.8px] leading-relaxed"
+            style="color:rgba(254,241,249,.82);"
+          >
+            Pensato per costruire pagine complete, che puoi comunque integrare o
+            estendere per esigenze particolari.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: ResponsiveShowcase -->
+  <section class="py-8 pb-24 text-center">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <blockquote class="max-w-[20ch] mx-auto">
+        Un solo layout.<br />Ogni <span class="text-sb-primary"
+          >dispositivo.</span
+        >
+      </blockquote>
+      <p
+        class="mt-5 mx-auto max-w-[46ch] text-[16px]"
+      >
+        Il progetto è responsivo e si adatta a finestre e dispositivi diversi,
+        per avere un sito leggibile e usabile dal mobile al desktop.
+      </p>
+
+      <!-- COMPONENT: DeviceMockup x3 -->
+      <div class="devices-row">
+        <div class="device desktop">
+          <div class="device-shell">
+            <div class="browser-bar">
+              <span class="traffic"></span><span class="traffic"></span><span
+                class="traffic"></span>
+              <div class="addr-pill"></div>
+            </div>
+            <div class="screen">
+              <div class="mini-scope">
+                <div class="mini-nav-row">
+                  <div class="mini-logo"></div>
+                  <div class="mini-nav-links">
+                    <div class="mini-line" style="width:22px;"></div>
+                    <div class="mini-line" style="width:22px;"></div>
+                    <div class="mini-line" style="width:22px;"></div>
+                  </div>
+                  <div class="mini-btn" style="width:42px;"></div>
+                </div>
+                <div class="mini-headline" style="width:82%;"></div>
+                <div class="mini-headline" style="width:55%;"></div>
+                <div class="mini-sub"></div>
+                <div class="mini-btn" style="width:68px; margin-bottom:16px;">
+                </div>
+                <div class="mini-grid">
+                  <div class="mini-card"></div><div class="mini-card"></div><div
+                    class="mini-card"
+                  >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stand"></div>
+          <div class="base"></div>
+          <div class="device-label">Desktop</div>
+        </div>
+
+        <div class="device tablet">
+          <div class="device-shell">
+            <div class="screen">
+              <div class="mini-scope">
+                <div class="mini-nav-row">
+                  <div class="mini-logo"></div>
+                  <div class="mini-line" style="width:24px;"></div>
+                </div>
+                <div class="mini-headline" style="width:92%;"></div>
+                <div class="mini-headline" style="width:60%;"></div>
+                <div class="mini-sub"></div>
+                <div class="mini-btn" style="width:60px; margin-bottom:14px;">
+                </div>
+                <div class="mini-grid">
+                  <div class="mini-card"></div><div class="mini-card"></div>
+                </div>
+              </div>
+            </div>
+            <div class="home-dot"></div>
+          </div>
+          <div class="device-label">Tablet</div>
+        </div>
+
+        <div class="device phone">
+          <div class="device-shell">
+            <div class="notch"></div>
+            <div class="screen">
+              <div class="mini-scope">
+                <div class="mini-nav-row">
+                  <div class="mini-logo"></div>
+                  <div class="mini-line" style="width:12px;"></div>
+                </div>
+                <div class="mini-headline" style="width:95%;"></div>
+                <div class="mini-headline" style="width:70%;"></div>
+                <div class="mini-sub"></div>
+                <div class="mini-btn" style="width:52px; margin-bottom:12px;">
+                </div>
+                <div class="mini-grid">
+                  <div class="mini-card"></div>
+                </div>
+              </div>
+            </div>
+            <div class="home-indicator"></div>
+          </div>
+          <div class="device-label">Mobile</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: GetStarted (id="iniziare") -->
+  <section id="iniziare" class="py-24">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div class="max-w-[680px] mb-13">
+        <span
+          class="block sb-eyebrow text-sb-primary mb-3.5"
+          >// tre modi per iniziare</span
+        >
+        <h2>Come usare questo template</h2>
+        <p
+          class="mt-3.5 text-[15.5px]"
+        >
+          Scegli il metodo che preferisci: interfaccia GitHub, GitHub CLI o
+          Astro CLI — portano tutti allo stesso risultato.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 min-[940px]:grid-cols-3 gap-6">
+        <div class="flex flex-col gap-4">
+          <div class="flex items-baseline gap-3">
+            <span class="sb-num-display"
+              >01</span
+            >
+            <h4>Dal browser</h4>
+          </div>
+          <p class="text-[14px] leading-snug">
+            Usa il pulsante "Use this template" sulla repo per creare una nuova
+            repository con l'intera struttura già pronta da clonare.
+          </p>
+          <div
+            class="border border-dashed border-sb-border rounded-sb-lg px-4.5 py-5 font-sb-mono text-[12.5px] text-sb-muted-foreground flex items-center gap-2.5"
+          >
+            <span>Use this template ▾</span>
+          </div>
+          <a
+            href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-1.5 text-[13px] font-bold text-sb-primary hover:underline"
+            >Guida GitHub ↗</a
+          >
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <div class="flex items-baseline gap-3">
+            <span class="sb-num-display"
+              >02</span
+            >
+            <h4>Da GitHub CLI</h4>
+          </div>
+          <p class="text-[14px] leading-snug">
+            Crea direttamente da terminale una nuova repository a partire dal
+            template.
+          </p>
+          <div class="terminal !text-[11.5px]">
+            <div class="term-bar">
+              <span class="term-dot"></span><span class="term-dot"></span><span
+                class="term-dot"></span>
+            </div>
+            <div class="term-body !py-4 !px-4 !text-[11.8px]">
+              <div>
+                <span class="prompt">$</span>
+                <span class="cmd">gh repo create my-project \</span>
+              </div>
+              <div>
+                <span class="cmd"
+                  >&nbsp;&nbsp;--template stefanBid/sb-template-astro</span
+                >
+              </div>
+            </div>
+          </div>
+          <a
+            href="https://cli.github.com/manual/gh_repo_create"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-1.5 text-[13px] font-bold text-sb-primary hover:underline"
+            >gh repo create ↗</a
+          >
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <div class="flex items-baseline gap-3">
+            <span class="sb-num-display"
+              >03</span
+            >
+            <h4>Da Astro CLI</h4>
+          </div>
+          <p class="text-[14px] leading-snug">
+            Genera il progetto direttamente con lo strumento ufficiale di Astro.
+          </p>
+          <div class="terminal !text-[11.5px]">
+            <div class="term-bar">
+              <span class="term-dot"></span><span class="term-dot"></span><span
+                class="term-dot"></span>
+            </div>
+            <div class="term-body !py-4 !px-4 !text-[11.8px]">
+              <div>
+                <span class="prompt">$</span>
+                <span class="cmd">pnpm create astro@latest \</span>
+              </div>
+              <div>
+                <span class="cmd"
+                  >&nbsp;&nbsp;-- --template sb-template-astro</span
+                >
+              </div>
+            </div>
+          </div>
+          <a
+            href="https://docs.astro.build/en/install-and-setup/#use-a-theme-or-starter-template"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-1.5 text-[13px] font-bold text-sb-primary hover:underline"
+            >Astro: usa un template ↗</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: Requirements (id="requisiti") -->
+  <section id="requisiti" class="py-24">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div class="max-w-[680px] mb-13">
+        <span
+          class="block sb-eyebrow text-sb-primary mb-3.5"
+          >// prima di iniziare</span
+        >
+        <h2>Requisiti</h2>
+        <p
+          class="mt-3.5 text-[15.5px]"
+        >
+          Solo due strumenti da avere installati prima di generare il progetto.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 min-[700px]:grid-cols-2 gap-5">
+        <div
+          class="border border-sb-border rounded-sb-lg p-6.5 bg-sb-card flex gap-4.5 items-start"
+        >
+          <div
+            class="w-10 h-10 rounded-sb-md bg-sb-secondary flex items-center justify-center font-sb-mono text-[13px] text-sb-primary shrink-0"
+          >
+            JS
+          </div>
+          <div>
+            <h4 class="text-[16px] mb-1.5">Node.js</h4>
+            <p class="text-[14px] leading-snug">
+              Versione <code
+                class="bg-sb-secondary px-1.5 py-0.5 rounded text-[13px]"
+                >≥ 22.12.0</code
+              >. È il runtime richiesto da Astro per dev server e build.
+            </p>
+          </div>
+        </div>
+        <div
+          class="border border-sb-border rounded-sb-lg p-6.5 bg-sb-card flex gap-4.5 items-start"
+        >
+          <div
+            class="w-10 h-10 rounded-sb-md bg-sb-secondary flex items-center justify-center font-sb-mono text-[13px] text-sb-primary shrink-0"
+          >
+            PN
+          </div>
+          <div>
+            <h4 class="text-[16px] mb-1.5">pnpm</h4>
+            <p class="text-[14px] leading-snug">
+              Il package manager usato dal template, incluso il workspace già
+              configurato per i permessi di build (<code
+                class="bg-sb-secondary px-1.5 py-0.5 rounded text-[13px]"
+                >esbuild</code
+              >, <code
+                class="bg-sb-secondary px-1.5 py-0.5 rounded text-[13px]"
+                >sharp</code
+              >).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: ScriptsReference -->
+  <section id="script" class="py-24">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div class="max-w-[680px] mb-13">
+        <span
+          class="block sb-eyebrow text-sb-primary mb-3.5"
+          >// script disponibili</span
+        >
+        <h2>Come far partire il progetto</h2>
+        <p
+          class="mt-3.5 text-[15.5px]"
+        >
+          Ogni comando è già pronto in <code
+            class="bg-sb-secondary px-1.5 py-0.5 rounded text-[0.9em]"
+            >package.json</code
+          >: basta lanciarlo con pnpm.
+        </p>
+      </div>
+
+      <div class="terminal">
+        <div class="term-bar">
+          <span class="term-dot"></span><span class="term-dot"></span><span
+            class="term-dot"></span>
+          <span class="term-title">package.json — scripts</span>
+        </div>
+        <div class="term-body">
+          <div>
+            <span class="prompt">$</span>
+            <span class="cmd">pnpm dev</span>
+            <span class="cmt"
+              >→ avvia il server di sviluppo su localhost:4321</span
+            >
+          </div>
+          <div>
+            <span class="prompt">$</span>
+            <span class="cmd">pnpm build</span>
+            <span class="cmt">→ crea la build di produzione in dist/</span>
+          </div>
+          <div>
+            <span class="prompt">$</span>
+            <span class="cmd">pnpm preview</span>
+            <span class="cmt"
+              >→ visualizza in locale la build di produzione</span
+            >
+          </div>
+          <div>
+            <span class="prompt">$</span>
+            <span class="cmd">pnpm astro ...</span>
+            <span class="cmt"
+              >→ esegue comandi della Astro CLI, es. astro add</span
+            >
+          </div>
+          <div>
+            <span class="prompt">$</span>
+            <span class="cmd">pnpm lint</span>
+            <span class="cmt">→ controlla il codice con ESLint</span>
+          </div>
+          <div>
+            <span class="prompt">$</span>
+            <span class="cmd">pnpm lint:fix</span>
+            <span class="cmt"
+              >→ corregge automaticamente i problemi rilevabili</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: ProjectStructure (id="struttura") -->
+  <section id="struttura" class="py-24">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div class="max-w-[680px] mb-13">
+        <span
+          class="block sb-eyebrow text-sb-primary mb-3.5"
+          >// organizzazione</span
+        >
+        <h2>Struttura del progetto</h2>
+        <p
+          class="mt-3.5 text-[15.5px]"
+        >
+          File e cartelle principali, così sai subito dove mettere le mani.
+        </p>
+      </div>
+
+      <div
+        class="grid grid-cols-1 min-[940px]:grid-cols-[1.1fr_0.9fr] gap-10 items-start"
+      >
+        <div class="terminal">
+          <div class="term-bar">
+            <span class="term-dot"></span><span class="term-dot"></span><span
+              class="term-dot"></span>
+            <span class="term-title">tree -L 3</span>
+          </div>
+          <div class="term-body leading-[1.75]">
+            <div>.</div>
+            <div>├── .vscode</div>
+            <div>├── public</div>
+            <div>├── src</div>
+            <div>│&nbsp;&nbsp;├── components</div>
+            <div>│&nbsp;&nbsp;├── layouts</div>
+            <div>│&nbsp;&nbsp;├── pages</div>
+            <div>│&nbsp;&nbsp;└── styles</div>
+            <div>│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── global.css</div>
+            <div>│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── theme.css</div>
+            <div>├── .gitignore</div>
+            <div>├── AGENTS.md</div>
+            <div>├── CLAUDE.md</div>
+            <div>├── README.md</div>
+            <div>├── astro.config.mjs</div>
+            <div>├── eslint.config.mjs</div>
+            <div>├── package.json</div>
+            <div>├── pnpm-lock.yaml</div>
+            <div>├── pnpm-workspace.yaml</div>
+            <div>└── tsconfig.json</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-5">
+          <div>
+            <div
+              class="sb-label-mono-md"
+            >
+              src/components
+            </div>
+            <p class="text-[14px] leading-snug mt-1">
+              Il set di componenti riutilizzabili per costruire le pagine.
+            </p>
+          </div>
+          <div>
+            <div
+              class="sb-label-mono-md"
+            >
+              src/layouts
+            </div>
+            <p class="text-[14px] leading-snug mt-1">
+              Gli involucri condivisi tra le pagine: struttura, head, elementi
+              comuni.
+            </p>
+          </div>
+          <div>
+            <div
+              class="sb-label-mono-md"
+            >
+              src/pages
+            </div>
+            <p class="text-[14px] leading-snug mt-1">
+              Il routing file-based di Astro: ogni file qui è una rotta.
+            </p>
+          </div>
+          <div>
+            <div
+              class="sb-label-mono-md"
+            >
+              src/styles
+            </div>
+            <p class="text-[14px] leading-snug mt-1">
+              <code
+                class="bg-sb-secondary px-1.5 py-0.5 rounded text-[0.9em]"
+                >global.css</code
+              > e <code
+                class="bg-sb-secondary px-1.5 py-0.5 rounded text-[0.9em]"
+                >theme.css</code
+              >: qui personalizzi i colori e i token del design system.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: CreatorSection (id="creatore") -->
+  <section id="creatore" class="pb-24">
+    <div class="max-w-[1180px] mx-auto px-7">
+      <div
+        class="border border-sb-border rounded-3xl p-11 max-[860px]:p-8 grid grid-cols-1 min-[860px]:grid-cols-[1.3fr_1fr] gap-10 items-center"
+      >
+        <div>
+          <h3 class="sb-h3-display">
+            Un progetto in manutenzione costante
+          </h3>
+          <p
+            class="mt-3.5 text-[15px] max-w-[52ch]"
+          >
+            Creato e mantenuto da Stefano Biddau. Il template continua a
+            ricevere modifiche e aggiornamenti: metti una stella alla repo per
+            restare sempre informato su ciò che cambia.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <a
+            href="https://github.com/stefanBid/sb-template-astro"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between gap-3 border border-sb-border rounded-sb-lg px-4.5 py-3.5 text-[14px] font-bold hover:border-sb-primary"
+          >
+            <span>⭐ Stella la repo su GitHub</span><span
+              class="text-sb-primary">↗</span
+            >
+          </a>
+          <a
+            href="https://github.com/stefanBid"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between gap-3 border border-sb-border rounded-sb-lg px-4.5 py-3.5 text-[14px] font-bold hover:border-sb-primary"
+          >
+            <span>Profilo GitHub — @stefanBid</span><span>↗</span>
+          </a>
+          <a
+            href="https://stefanobiddau.com"
+            target="_blank"
+            rel="noopener"
+            class="flex items-center justify-between gap-3 border border-sb-border rounded-sb-lg px-4.5 py-3.5 text-[14px] font-bold hover:border-sb-primary"
+          >
+            <span>stefanobiddau.com</span><span>↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENT: FinalCta -->
+  <div
+    class="cta-band relative rounded-3xl px-10 py-24 text-center mx-7 mb-15 overflow-hidden text-[#FEF1F9]"
+  >
+    <div class="relative z-10">
+      <div
+        class="inline-block font-sb-mono text-[12.5px] bg-black/28 px-5 py-3 rounded-full mb-6.5"
+      >
+        $ pnpm create astro@latest -- --template stefanBid/sb-template-astro
+      </div>
+      <h2 class="sb-h2-cta max-w-[20ch] mx-auto">
+        Prendi il template.<br />Salta il setup.
+      </h2>
+      <p class="mt-4.5 mb-7.5 mx-auto max-w-[46ch] text-sb-primary-50 opacity-90">
+        Open source, MIT license, pensato per essere clonato ad ogni progetto
+        nuovo.
+      </p>
+      <div class="flex gap-3.5 justify-center flex-wrap">
+        <a
+          href="https://github.com/stefanBid/sb-template-astro"
+          target="_blank"
+          rel="noopener"
+          class="bg-[#FEF1F9] text-sb-neutral-900 px-6.5 py-3.5 rounded-full font-extrabold text-[14.5px]"
+          >Clona il repository</a
+        >
+        <a
+          href="https://github.com/stefanBid/sb-template-astro#readme"
+          target="_blank"
+          rel="noopener"
+          class="border-[1.5px] border-[#FEF1F9] text-[#FEF1F9] px-6.5 py-3.5 rounded-full font-bold text-[14.5px]"
+          >Leggi la documentazione</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENT: SiteFooter -->
+  <footer class="py-8 pb-12">
+    <div
+      class="max-w-[1180px] mx-auto px-7 flex justify-between flex-wrap gap-3 text-[13px] text-sb-muted-foreground"
+    >
+      <span>Costruito da Stefano Biddau — MIT License</span>
+      <span>sb-template-astro</span>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* Queste regole coprono i componenti troppo specifici per essere puliti
+     come sole utility Tailwind: logo/gradiente, terminale, mockup dispositivi.
+     Sono scoped ad Astro (si applicano solo a questa pagina) — quando le
+     estrai in componenti, spostale nel relativo file .astro. */
+
+  /* logo reale — fisso, non cambia con il tema. Verticale: CSS 180deg = top→bottom */
+  :global(:root) {
+    --sb-logo-gradient: linear-gradient(180deg, #e63ba6 0%, #000000 100%);
+  }
+
+  .btn-gradient {
+    background: var(--sb-logo-gradient);
+    box-shadow: 0 0 0 1px var(--sb-border);
+  }
+  .btn-gradient:hover {
+    filter: brightness(1.12);
+  }
+  :global(.dark) .btn-gradient {
+    box-shadow: 0 0 0 1.5px #ffffff;
+  }
+
+  .featured-card {
+    background: var(--sb-logo-gradient);
+    box-shadow: inset 0 0 0 1px var(--sb-border);
+  }
+  :global(.dark) .featured-card {
+    box-shadow: inset 0 0 0 1.5px #ffffff;
+  }
+
+  .cta-band {
+    background: var(--sb-logo-gradient);
+  }
+  .cta-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.32);
+  }
+
+  /* terminal window — segue il tema per contrasto sempre corretto */
+  .terminal {
+    background: var(--sb-card);
+    border: 1px solid var(--sb-border);
+    border-radius: var(--sb-radius);
+    overflow: hidden;
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.35);
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--sb-border);
+  }
+  .term-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--sb-muted);
+  }
+  .term-title {
+    margin-left: 10px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--sb-muted-foreground);
+  }
+  .term-body {
+    padding: 22px 20px 26px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--sb-card-foreground);
+  }
+  .term-body .prompt {
+    color: var(--sb-muted-foreground);
+  }
+  .term-body .cmd {
+    color: var(--sb-card-foreground);
+  }
+  .term-body .out {
+    color: var(--sb-primary);
+  }
+  .term-body .cmt {
+    color: var(--sb-muted-foreground);
+  }
+  .term-body .ok {
+    color: #16a34a;
+  }
+  :global(.dark) .term-body .ok {
+    color: #4ade80;
+  }
+  .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 15px;
+    background: var(--sb-primary);
+    vertical-align: -2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* ---------- DEVICES: illustrazione responsive ---------- */
+  .devices-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 36px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+  .device {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .device-label {
+    margin-top: 16px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: var(--sb-muted-foreground);
+    letter-spacing: 0.02em;
+  }
+  .device-shell {
+    background: var(--sb-muted);
+    border: 1px solid var(--sb-border);
+    box-shadow: 0 26px 54px -26px rgba(0, 0, 0, 0.35);
+  }
+
+  .device.desktop .device-shell {
+    width: 340px;
+    border-radius: 10px;
+    padding: 8px 8px 0;
+  }
+  .device.desktop .browser-bar {
+    display: flex;
+    align-items: center;
+    padding: 6px 6px 8px;
+  }
+  .device.desktop .traffic {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--sb-border);
+    margin-right: 6px;
+  }
+  .device.desktop .addr-pill {
+    flex: 1;
+    height: 13px;
+    margin-left: 10px;
+    border-radius: 999px;
+    background: var(--sb-card);
+  }
+  .device.desktop .screen {
+    background: var(--sb-card);
+    border-radius: 6px 6px 0 0;
+    padding: 18px 18px 0;
+    overflow: hidden;
+    height: 188px;
+  }
+  .device.desktop .stand {
+    width: 84px;
+    height: 14px;
+    margin: 0 auto;
+    background: var(--sb-muted);
+    border: 1px solid var(--sb-border);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+  }
+  .device.desktop .base {
+    width: 144px;
+    height: 6px;
+    margin: 0 auto;
+    background: var(--sb-border);
+    border-radius: 3px;
+  }
+
+  .device.tablet .device-shell {
+    width: 176px;
+    padding: 16px 10px;
+    border-radius: 22px;
+  }
+  .device.tablet .screen {
+    background: var(--sb-card);
+    border-radius: 8px;
+    padding: 15px 13px;
+    height: 218px;
+    overflow: hidden;
+  }
+  .device.tablet .home-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--sb-border);
+    margin: 10px auto 0;
+  }
+
+  .device.phone .device-shell {
+    width: 108px;
+    padding: 12px 7px;
+    border-radius: 20px;
+  }
+  .device.phone .notch {
+    width: 34px;
+    height: 7px;
+    background: var(--sb-muted-foreground);
+    opacity: 0.3;
+    border-radius: 4px;
+    margin: 0 auto 8px;
+  }
+  .device.phone .screen {
+    background: var(--sb-card);
+    border-radius: 10px;
+    padding: 12px 9px;
+    height: 198px;
+    overflow: hidden;
+  }
+  .device.phone .home-indicator {
+    width: 32px;
+    height: 4px;
+    background: var(--sb-border);
+    border-radius: 2px;
+    margin: 8px auto 0;
+  }
+
+  .device.desktop .mini-scope {
+    --u: 5px;
+  }
+  .device.tablet .mini-scope {
+    --u: 4px;
+  }
+  .device.phone .mini-scope {
+    --u: 3.4px;
+  }
+  .mini-logo {
+    width: calc(var(--u) * 2);
+    height: calc(var(--u) * 2);
+    border-radius: 4px;
+    background: var(--sb-logo-gradient);
+    flex-shrink: 0;
+  }
+  .mini-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--u) * 1);
+    margin-bottom: calc(var(--u) * 3);
+  }
+  .mini-nav-links {
+    display: flex;
+    gap: calc(var(--u) * 1.2);
+  }
+  .mini-line {
+    height: calc(var(--u) * 0.9);
+    border-radius: 3px;
+    background: var(--sb-muted-foreground);
+    opacity: 0.35;
+  }
+  .mini-btn {
+    height: calc(var(--u) * 1.6);
+    border-radius: 999px;
+    background: var(--sb-primary);
+  }
+  .mini-headline {
+    height: calc(var(--u) * 2.6);
+    border-radius: 3px;
+    background: var(--sb-foreground);
+    opacity: 0.88;
+    margin-bottom: calc(var(--u) * 1);
+  }
+  .mini-sub {
+    height: calc(var(--u) * 0.9);
+    border-radius: 3px;
+    background: var(--sb-muted-foreground);
+    opacity: 0.4;
+    margin-bottom: calc(var(--u) * 2.2);
+    width: 70%;
+  }
+  .mini-grid {
+    display: grid;
+    gap: calc(var(--u) * 1);
+  }
+  .device.desktop .mini-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .device.tablet .mini-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .device.phone .mini-grid {
+    grid-template-columns: 1fr;
+  }
+  .mini-card {
+    border: 1px solid var(--sb-border);
+    border-radius: 4px;
+    height: calc(var(--u) * 6);
+    background: var(--sb-secondary);
+  }
+</style>

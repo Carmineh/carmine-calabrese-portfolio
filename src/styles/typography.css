@@ -1,0 +1,86 @@
+/* ==========================================================================
+   TYPOGRAPHY
+
+   Two tiers:
+   1) @layer base — default look per HTML tag, applies automatically, no
+                    class needed. Override per-instance with a utility
+                    class (utilities always win over base, no
+                    !important needed).
+   2) @utility     — every named class beyond the tag default, whether
+                    it's an atomic brick reused across unrelated
+                    elements or a single-spot heading recipe. Always
+                    self-contained: adding it to markup is enough,
+                    nothing else required.
+
+   Sizes are stepped by breakpoint (sm/md/lg/xl), not fluid clamp(), so
+   the scale stays predictable and controllable per screen range.
+   ========================================================================== */
+
+@layer base {
+  h1 {
+    @apply font-sb-display uppercase leading-[0.93];
+    @apply text-[2.7rem] md:text-[3rem] lg:text-[4rem] xl:text-[5rem] 2xl:text-[5.6rem];
+  }
+  h2 {
+    @apply font-sb-display uppercase leading-[0.93];
+    @apply text-[2rem] lg:text-[2.7rem];
+  }
+  h3 {
+    @apply font-extrabold text-[17px];
+  }
+  h4 {
+    @apply font-extrabold text-[16.5px];
+  }
+  p {
+    @apply text-sb-muted-foreground leading-relaxed;
+  }
+  code {
+    @apply font-sb-mono;
+  }
+  blockquote {
+    @apply font-sb-display uppercase leading-[1.08];
+    @apply text-[1.9rem] md:text-[2.3rem] lg:text-[3rem] xl:text-[3.4rem];
+  }
+}
+
+/* --------------------------------------------------------------------------
+   utility bricks — atomic, reused across unrelated elements
+   -------------------------------------------------------------------------- */
+
+/* mono eyebrow label, e.g. "// prima di iniziare" */
+@utility sb-eyebrow {
+  @apply font-sb-mono text-[12.5px];
+}
+/* small mono tag, e.g. "01 · linting" */
+@utility sb-label-mono-sm {
+  @apply font-sb-mono text-[11px];
+}
+/* mono label with weight, e.g. "src/components" */
+@utility sb-label-mono-md {
+  @apply font-sb-mono text-[13px] font-semibold text-sb-primary;
+}
+/* big display digit, e.g. "01" step numbers */
+@utility sb-num-display {
+  @apply font-sb-display text-[28px] text-sb-primary;
+}
+
+/* --------------------------------------------------------------------------
+   single-spot heading styles that diverge from the h2/h3 tag default —
+   still @utility, self-contained, nothing else needed to use them
+   -------------------------------------------------------------------------- */
+
+/* larger h2, e.g. "Cosa contiene" in WhatsIncluded */
+@utility sb-h2-lg {
+  @apply font-sb-display uppercase leading-[0.93];
+  @apply text-[2.1rem] lg:text-[2.8rem] xl:text-[3rem];
+}
+/* h3 in display style (Anton) instead of the default sans/extrabold, e.g. CreatorSection */
+@utility sb-h3-display {
+  @apply font-sb-display font-normal uppercase leading-[0.93];
+  @apply text-[1.6rem] lg:text-[1.9rem] xl:text-[2.1rem];
+}
+/* h2 of the final CTA, its own bigger scale */
+@utility sb-h2-cta {
+  @apply font-sb-display uppercase leading-[0.93];
+  @apply text-[2rem] md:text-[2.4rem] lg:text-[3.2rem] xl:text-[3.4rem];
+}
