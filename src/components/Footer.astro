@@ -1,0 +1,55 @@
+---
+import type { Locale } from '@i18n/translations';
+import { translations } from '@i18n/translations';
+import TechIcon from './TechIcon.astro';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang].footer;
+const currentYear = new Date().getFullYear();
+
+const links = [
+  { label: 'GitHub', href: 'https://github.com/Carmineh', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/carmine-calabrese-8929bb189', icon: 'linkedin' },
+  { label: 'itch.io', href: 'https://mannyverse.itch.io/go-fishin', icon: 'itchio' },
+  { label: 'Email', href: 'mailto:carmine.calabrese99@gmail.com', icon: 'mail' },
+];
+---
+
+<footer class="mt-24 border-t border-sb-border">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+    <div class="max-w-md">
+      <p class="font-sb-display text-lg font-medium text-sb-foreground">Carmine Calabrese<span class="sb-dot">.</span></p>
+      <p class="text-xs text-sb-muted-foreground mt-2 leading-relaxed">{t.tagline}</p>
+      <p class="text-[11px] text-sb-muted-foreground/60 font-sb-mono mt-3">
+        © {currentYear} · {t.builtWith}{' '}
+        <a
+          href="https://github.com/stefanBid/sb-template-astro"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline decoration-sb-primary/60 underline-offset-2 hover:text-sb-foreground transition-colors"
+          >sb-template-astro</a
+        >
+      </p>
+    </div>
+
+    <nav class="flex flex-wrap items-center gap-2 text-xs" aria-label="Social">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            target={l.href.startsWith('http') ? '_blank' : undefined}
+            rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sb-md border border-sb-border text-sb-muted-foreground hover:text-sb-foreground hover:border-sb-border-strong transition-colors"
+          >
+            {l.icon && <TechIcon name={l.icon} class="w-3.5 h-3.5" />}
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>

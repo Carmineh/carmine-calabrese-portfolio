@@ -1,0 +1,137 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Layout from '@layouts/Layout.astro';
+import type { Locale } from '@i18n/translations';
+import { dateLocales, localePrefix, translations } from '@i18n/translations';
+import { articleCategories } from '@data/articleCategories';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  lang: Locale;
+}
+
+const { article, lang } = Astro.props;
+const { Content } = await render(article);
+const { data } = article;
+const t = translations[lang].articlesSection;
+const articlesHref = `${localePrefix(lang)}/articles/`;
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat(dateLocales[lang], {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+---
+
+<Layout
+  lang={lang}
+  title={`${data.title} | Carmine Calabrese`}
+  description={data.description}
+  type="article"
+  publishedTime={data.pubDate}
+>
+  <article class="max-w-3xl mx-auto" lang={data.lang}>
+    <!-- Breadcrumb & Back button -->
+    <div class="mb-8 flex items-center justify-between gap-3 text-xs font-sb-mono">
+      <a
+        href={articlesHref}
+        class="inline-flex items-center gap-1.5 text-sb-muted-foreground hover:text-sb-foreground transition-colors"
+      >
+        <span>&larr;</span> {t.backToAll}
+      </a>
+      <span class="sb-chip">
+        {articleCategories[data.category][lang]}
+      </span>
+    </div>
+
+    <!-- Header -->
+    <header class="border-b border-sb-border pb-8 mb-8">
+      <div class="flex flex-wrap items-center gap-2 mb-3 text-xs text-sb-muted-foreground font-sb-mono">
+        <time datetime={data.pubDate.toISOString()}>{formatDate(data.pubDate)}</time>
+        {data.updatedDate && (
+          <>
+            <span>•</span>
+            <span>
+              {t.updated} <time datetime={data.updatedDate.toISOString()}>{formatDate(data.updatedDate)}</time>
+            </span>
+          </>
+        )}
+        {data.readingTime && (
+          <>
+            <span>•</span>
+            <span class="text-sb-foreground bg-sb-card px-2 py-0.5 rounded-sb-sm border border-sb-border">
+              {data.readingTime}
+            </span>
+          </>
+        )}
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl font-bold text-sb-foreground leading-tight">
+        {data.title}
+      </h1>
+
+      <p class="text-base text-sb-muted-foreground mt-3 leading-relaxed">
+        {data.description}
+      </p>
+
+      {lang === 'en' && data.lang === 'it' && (
+        <p class="text-xs font-sb-mono text-sb-muted-foreground/80 mt-3">
+          🇮🇹 {t.onlyItalian}
+        </p>
+      )}
+
+      {data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-sb-border/40">
+          {data.tags.map((tag) => (
+            <span class="text-xs font-sb-mono text-sb-muted-foreground/80 bg-sb-card px-2 py-0.5 rounded-sb-md border border-sb-border">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Content -->
+    <div class="sb-prose leading-relaxed text-sm sm:text-base">
+      <Content />
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-12 pt-6 border-t border-sb-border flex items-center justify-between text-xs text-sb-muted-foreground">
+      <span>{t.writtenBy}</span>
+      <a href={articlesHref} class="sb-link font-sb-mono">
+        &uarr; {t.exploreMore}
+      </a>
+    </div>
+  </article>
+
+  <!-- Copy button for code blocks -->
+  <script define:vars={{ copyLabel: t.copy, copiedLabel: t.copied }}>
+    document.querySelectorAll('.prose-minimal pre').forEach((pre) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'relative group my-4';
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className =
+        'absolute top-2.5 right-2.5 px-2 py-1 text-xs font-sb-mono bg-sb-card/90 hover:bg-sb-card text-sb-muted-foreground hover:text-sb-foreground rounded-sb-md border border-sb-border opacity-100 sm:opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all';
+      button.innerText = copyLabel;
+
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code')?.innerText || pre.innerText;
+        await navigator.clipboard.writeText(code);
+        button.innerText = copiedLabel;
+        button.classList.add('text-sb-primary');
+        setTimeout(() => {
+          button.innerText = copyLabel;
+          button.classList.remove('text-sb-primary');
+        }, 2000);
+      });
+
+      wrapper.appendChild(button);
+    });
+  </script>
+</Layout>

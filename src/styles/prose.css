@@ -1,0 +1,103 @@
+/* ==========================================================================
+   PROSE
+   Rendered Markdown inside articles: wrap the content in .sb-prose
+   ========================================================================== */
+
+.sb-prose {
+  & h2 {
+    font-size: 1.35rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--sb-border);
+  }
+  & h3 {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  & p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+  & ul,
+  & ol {
+    margin-left: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  & ul {
+    list-style-type: disc;
+  }
+  & ol {
+    list-style-type: decimal;
+  }
+  & li {
+    margin-bottom: 0.35rem;
+  }
+  & blockquote {
+    border-left: 3px solid var(--sb-primary);
+    background-color: rgb(255 255 255 / 0.03);
+    padding: 0.75rem 1rem;
+    margin: 1.25rem 0;
+    color: #a3a39e;
+    font-size: 0.9rem;
+  }
+  & blockquote p {
+    margin-bottom: 0;
+  }
+  & a {
+    color: var(--sb-foreground);
+    text-decoration: underline;
+    text-decoration-color: var(--sb-primary);
+    text-underline-offset: 3px;
+  }
+  & a:hover {
+    color: var(--sb-primary);
+  }
+  & hr {
+    border: none;
+    border-top: 1px solid var(--sb-border);
+    margin: 2rem 0;
+  }
+  & table {
+    width: 100%;
+    margin: 1.25rem 0;
+    font-size: 0.85rem;
+    border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+  }
+  & th,
+  & td {
+    border: 1px solid var(--sb-border);
+    padding: 0.4rem 0.75rem;
+    text-align: left;
+  }
+  & th {
+    background-color: var(--sb-card);
+    color: var(--sb-foreground);
+  }
+  & img {
+    max-width: 100%;
+    border-radius: calc(var(--sb-radius) + 2px);
+    border: 1px solid var(--sb-border);
+    margin: 1.25rem 0;
+  }
+  & pre {
+    border-radius: calc(var(--sb-radius) + 2px);
+    padding: 1rem;
+    margin: 1.25rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--sb-border);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  & :not(pre) > code {
+    background-color: var(--sb-card);
+    color: var(--sb-foreground);
+    border: 1px solid var(--sb-border);
+    border-radius: calc(var(--sb-radius) - 2px);
+    padding: 0.1rem 0.35rem;
+    font-size: 0.8em;
+  }
+}

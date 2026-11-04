@@ -1,0 +1,204 @@
+---
+import Layout from '@layouts/Layout.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import ArticleCard from '@components/ArticleCard.astro';
+import TechIcon from '@components/TechIcon.astro';
+import CvDownload from '@components/CvDownload.astro';
+import { projects } from '@data/projects';
+import { skillCategories } from '@data/skills';
+import { getCollection } from 'astro:content';
+import { features } from '@data/site';
+import type { Locale } from '@i18n/translations';
+import { localePrefix } from '@i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const p = localePrefix(lang);
+
+const text = {
+  en: {
+    title: 'Carmine Calabrese | Software Engineer & Security Enthusiast',
+    description:
+      "Personal portfolio of Carmine Calabrese. Master's in Computer Science, software engineering, IEEE research, backend, DevSecOps and game dev.",
+    badge: 'Software engineer · Naples, Italy',
+    role: 'Software Engineer & Security Enthusiast',
+    bio: [
+      "Master's Degree candidate in Computer Science at the University of Salerno, co-author of a paper published at ",
+      'IEEE SANER 2026',
+      '. I combine software design, maintenance and project management with hands-on experience in security-oriented activities, and I am aiming at ',
+      'Backend, DevOps and DevSecOps roles',
+      '. Outside university I make games and open-source mods.',
+    ],
+    ctaProjects: 'View Projects',
+    ctaContact: 'Get in Touch',
+    skillsTitle: 'Core Technologies',
+    skillsSubtitle: 'Languages, tools and environments I use the most',
+    allSkills: 'All skills',
+    projectsTitle: 'Featured Projects',
+    projectsSubtitle: 'Research and university work first, then personal projects',
+    allProjects: 'All projects',
+    articlesTitle: 'Latest Articles',
+    articlesSubtitle: 'What I am learning along the way: pentesting, DevSecOps, software engineering',
+    allArticles: 'All articles',
+    noArticles: 'First articles coming soon. Stay tuned!',
+  },
+  it: {
+    title: 'Carmine Calabrese | Software Engineer & Appassionato di Cybersecurity',
+    description:
+      'Portfolio personale di Carmine Calabrese. Laurea Magistrale in Informatica, software engineering, ricerca IEEE SANER, backend, DevSecOps e game dev.',
+    badge: 'Software engineer · Napoli, Italia',
+    role: 'Software Engineer & Appassionato di Cybersecurity',
+    bio: [
+      "Laureando Magistrale in Informatica all'Università degli Studi di Salerno, co-autore di un paper pubblicato a ",
+      'IEEE SANER 2026',
+      '. Unisco progettazione e manutenzione del software e project management a esperienza pratica in attività legate alla sicurezza, e punto a ',
+      'ruoli Backend, DevOps e DevSecOps',
+      '. Fuori dall’università sviluppo videogiochi e mod open-source.',
+    ],
+    ctaProjects: 'Guarda i Progetti',
+    ctaContact: 'Contattami',
+    skillsTitle: 'Tecnologie Principali',
+    skillsSubtitle: 'Linguaggi, strumenti e ambienti che uso di più',
+    allSkills: 'Tutte le competenze',
+    projectsTitle: 'Progetti in Evidenza',
+    projectsSubtitle: 'Prima ricerca e progetti universitari, poi quelli personali',
+    allProjects: 'Tutti i progetti',
+    articlesTitle: 'Ultimi Articoli',
+    articlesSubtitle: 'Quello che imparo lungo il percorso: pentesting, DevSecOps, software engineering',
+    allArticles: 'Tutti gli articoli',
+    noArticles: 'I primi articoli arriveranno presto. Resta sintonizzato!',
+  },
+}[lang];
+
+const coreSkills = skillCategories.flatMap((c) => c.items).filter((s) => s.core);
+const featuredProjects = projects.filter((pr) => pr.featured).slice(0, 4);
+
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
+const latestArticles = allArticles
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+---
+
+<Layout lang={lang} title={text.title} description={text.description}>
+  <!-- ================= HERO ================= -->
+  <section class="pt-6 pb-14 sm:pt-14 sm:pb-20">
+    <p class="sb-eyebrow">{text.badge}</p>
+
+    <h1 class="sb-display text-[3.4rem] sm:text-8xl md:text-9xl mt-6">
+      Carmine<br />Calabrese<span class="sb-dot">.</span>
+    </h1>
+
+    <p class="font-sb-display text-xl sm:text-2xl text-sb-foreground mt-8">
+      {text.role}
+    </p>
+
+    <p class="text-sm sm:text-base text-sb-muted-foreground mt-3 max-w-2xl leading-relaxed">
+      {text.bio[0]}<span class="text-sb-foreground">{text.bio[1]}</span>{text.bio[2]}<span class="text-sb-foreground">{text.bio[3]}</span>{text.bio[4]}
+    </p>
+
+    <div class="flex flex-wrap items-center gap-3 mt-8">
+      <CvDownload lang={lang} />
+
+      <a
+        href={`${p}/projects/`}
+        class="px-4 py-2.5 rounded-sb-md border border-sb-border text-sb-foreground text-sm hover:border-sb-border-strong hover:bg-sb-card transition-colors"
+      >
+        {text.ctaProjects} &rarr;
+      </a>
+
+      <a
+        href="https://github.com/Carmineh"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-sb-md text-sb-muted-foreground hover:text-sb-foreground text-sm transition-colors"
+      >
+        <TechIcon name="github" class="w-4 h-4" />
+        GitHub
+      </a>
+
+      <a
+        href="mailto:carmine.calabrese99@gmail.com"
+        class="px-3.5 py-2.5 rounded-sb-md text-sb-muted-foreground hover:text-sb-foreground text-sm transition-colors"
+      >
+        {text.ctaContact}
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ================= CORE SKILLS ================= -->
+  <section class="py-12">
+    <div class="flex items-end justify-between gap-4 mb-6">
+      <div>
+        <h2 class="sb-section-title"><span class="font-sb-mono text-sm text-sb-primary align-middle mr-2">01</span>{text.skillsTitle}</h2>
+        <p class="text-sm text-sb-muted-foreground mt-1">{text.skillsSubtitle}</p>
+      </div>
+      <a href={`${p}/skills/`} class="shrink-0 text-xs font-sb-mono sb-link">
+        {text.allSkills} &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+      {
+        coreSkills.map((skill) => (
+          <div class="sb-panel sb-panel-hover flex items-center gap-3 p-3">
+            <div class="w-9 h-9 rounded-sb-md bg-sb-muted border border-sb-border flex items-center justify-center text-sb-foreground shrink-0">
+              <TechIcon name={skill.icon} class="w-[18px] h-[18px]" />
+            </div>
+            <span class="text-sm font-medium text-sb-foreground truncate">{skill.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ================= FEATURED PROJECTS ================= -->
+  <section class="py-12">
+    <div class="flex items-end justify-between gap-4 mb-6">
+      <div>
+        <h2 class="sb-section-title"><span class="font-sb-mono text-sm text-sb-primary align-middle mr-2">02</span>{text.projectsTitle}</h2>
+        <p class="text-sm text-sb-muted-foreground mt-1">{text.projectsSubtitle}</p>
+      </div>
+      <a href={`${p}/projects/`} class="shrink-0 text-xs font-sb-mono sb-link">
+        {text.allProjects} ({projects.length}) &rarr;
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {featuredProjects.map((project) => <ProjectCard project={project} lang={lang} />)}
+    </div>
+  </section>
+
+  <!-- ================= ARTICLES ================= -->
+  {features.articles && (
+  <section class="py-12">
+    <div class="flex items-end justify-between gap-4 mb-6">
+      <div>
+        <h2 class="sb-section-title"><span class="font-sb-mono text-sm text-sb-primary align-middle mr-2">03</span>{text.articlesTitle}</h2>
+        <p class="text-sm text-sb-muted-foreground mt-1">{text.articlesSubtitle}</p>
+      </div>
+      {latestArticles.length > 0 && (
+        <a href={`${p}/articles/`} class="shrink-0 text-xs font-sb-mono sb-link">
+          {text.allArticles} ({allArticles.length}) &rarr;
+        </a>
+      )}
+    </div>
+
+    {
+      latestArticles.length > 0 ? (
+        <div class="grid grid-cols-1 gap-3.5">
+          {latestArticles.map((article) => <ArticleCard article={article} lang={lang} />)}
+        </div>
+      ) : (
+        <div class="sb-panel p-8 text-center">
+          <p class="font-sb-mono text-sm text-sb-primary">$ ls ./articles</p>
+          <p class="text-sm text-sb-muted-foreground mt-2">{text.noArticles}</p>
+        </div>
+      )
+    }
+  </section>
+  )}
+</Layout>

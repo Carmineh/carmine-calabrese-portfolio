@@ -1,71 +1,114 @@
 ---
-import { Image } from "astro:assets";
-import logo from "@assets/sb-template-logo.webp";
+import type { Locale } from '@i18n/translations';
+import { translations } from '@i18n/translations';
+import { features } from '@data/site';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang].nav;
+// Normalize trailing slash so '/it' and '/it/' (dev vs build output) compare equal
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+// Funzione per generare i link della lingua opposta
+const getSwitchUrl = (targetLang: Locale) => {
+  const isItalian = currentPath === '/it' || currentPath.startsWith('/it/');
+  if (targetLang === 'it') {
+    if (isItalian) return `${currentPath}/`;
+    return currentPath === '/' ? '/it/' : `/it${currentPath}/`;
+  } else {
+    if (!isItalian) return currentPath === '/' ? '/' : `${currentPath}/`;
+    const stripped = currentPath.replace(/^\/it/, '');
+    return stripped === '' ? '/' : `${stripped}/`;
+  }
+};
+
+const prefix = lang === 'it' ? '/it' : '';
+
+const navItems = [
+  { href: `${prefix}/`, label: t.home, isExact: true },
+  { href: `${prefix}/projects/`, label: t.projects },
+  { href: `${prefix}/skills/`, label: t.skills },
+  ...(features.articles ? [{ href: `${prefix}/articles/`, label: t.articles }] : []),
+  { href: `${prefix}/resume/`, label: t.resume },
+];
 ---
 
-<header
-  class="sticky top-0 z-30 py-5 border-b border-sb-border backdrop-blur-md bg-sb-background/85"
->
-  <div class="max-w-[1180px] mx-auto px-7">
-    <nav class="flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <Image
-          src={logo}
-          alt="sb-template-astro"
-          height={72}
-          class="h-9 w-auto"
-        />
-        <span class="font-bold text-[15px]">sb-template-astro</span>
+<header class="sticky top-0 z-50 bg-sb-background/95 border-b border-sb-border">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 sm:py-0 sm:h-16 flex flex-wrap sm:flex-nowrap items-center justify-between gap-y-2">
+    <!-- Brand / Name -->
+    <a href={`${prefix}/`} class="font-sb-display text-base font-semibold tracking-tight text-sb-foreground" aria-label="Carmine Calabrese – Home">
+      CC<span class="sb-dot">.</span>
+    </a>
+
+    <!-- Nav Links & Language Switcher -->
+    <div class="contents sm:flex items-center gap-4">
+      <nav class="order-last sm:order-none w-full sm:w-auto flex items-center gap-1 overflow-x-auto sb-no-scrollbar -mx-1 px-1" aria-label="Main">
+        {
+          navItems.map((item) => {
+            const base = item.href.replace(/\/+$/, '') || '/';
+            const isActive = item.isExact
+              ? currentPath === base
+              : currentPath === base || currentPath.startsWith(`${base}/`);
+
+            return (
+              <a
+                href={item.href}
+                aria-current={isActive ? 'page' : undefined}
+                class={`shrink-0 px-2.5 py-1.5 text-xs sm:text-sm transition-colors underline-offset-[6px] decoration-2 ${
+                  isActive
+                    ? 'text-sb-foreground underline decoration-sb-primary'
+                    : 'text-sb-muted-foreground hover:text-sb-foreground'
+                }`}
+              >
+                {item.label}
+              </a>
+            );
+          })
+        }
+      </nav>
+
+      <!-- Language Switcher EN | IT -->
+      <div class="flex items-center border border-sb-border rounded-sb-md p-0.5 text-xs font-sb-mono sm:ml-1">
+        <a
+          href={getSwitchUrl('en')}
+          class={`px-2 py-1 rounded-sb-sm transition-colors ${
+            lang === 'en'
+              ? 'bg-sb-foreground text-sb-background font-medium'
+              : 'text-sb-muted-foreground hover:text-sb-foreground'
+          }`}
+          title="English"
+        >
+          EN
+        </a>
+        <a
+          href={getSwitchUrl('it')}
+          class={`px-2 py-1 rounded-sb-sm transition-colors ${
+            lang === 'it'
+              ? 'bg-sb-foreground text-sb-background font-medium'
+              : 'text-sb-muted-foreground hover:text-sb-foreground'
+          }`}
+          title="Italiano"
+        >
+          IT
+        </a>
       </div>
-      <div class="hidden min-[1000px]:flex gap-6">
-        <a
-          href="#contenuto"
-          class="text-[13.5px] font-semibold text-sb-muted-foreground hover:text-sb-foreground"
-          >Cosa contiene</a
-        >
-        <a
-          href="#iniziare"
-          class="text-[13.5px] font-semibold text-sb-muted-foreground hover:text-sb-foreground"
-          >Come iniziare</a
-        >
-        <a
-          href="#requisiti"
-          class="text-[13.5px] font-semibold text-sb-muted-foreground hover:text-sb-foreground"
-          >Requisiti</a
-        >
-        <a
-          href="#struttura"
-          class="text-[13.5px] font-semibold text-sb-muted-foreground hover:text-sb-foreground"
-          >Struttura</a
-        >
-      </div>
-      <div class="flex items-center gap-3.5">
-        <button
-          id="theme-toggle"
-          type="button"
-          aria-label="Cambia tema chiaro/scuro"
-          class="border-[1.5px] border-sb-border rounded-full px-3.5 py-1.5 text-[12.5px] text-sb-muted-foreground bg-transparent"
-          >☾ / ☀</button
-        >
-        <a
-          href="https://github.com/stefanBid/sb-template-astro"
-          target="_blank"
-          rel="noopener"
-          class="border-[1.5px] border-sb-foreground rounded-full px-4.5 py-2 text-[13.5px] font-bold"
-          >GitHub</a
-        >
-      </div>
-    </nav>
+
+      <!-- Quick GitHub Link -->
+      <a
+        href="https://github.com/Carmineh"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden sm:flex items-center text-sb-muted-foreground hover:text-sb-foreground p-1.5 transition-colors"
+        title="GitHub"
+        aria-label="GitHub Profile"
+      >
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+        </svg>
+      </a>
+    </div>
   </div>
 </header>
-
-<script>
-  // Placeholder: toggle manuale del tema. In produzione, sostituisci con
-  // una gestione persistita (localStorage / prefers-color-scheme) e
-  // idealmente evita il flash-of-wrong-theme leggendo la preferenza
-  // in un piccolo script inline nell'head, prima del render del body.
-  const toggle = document.getElementById("theme-toggle");
-  toggle?.addEventListener("click", () => {
-    document.documentElement.classList.toggle("dark");
-  });
-</script>

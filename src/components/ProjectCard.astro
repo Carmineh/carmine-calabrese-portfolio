@@ -1,0 +1,106 @@
+---
+import type { Project } from '@data/projects';
+import type { Locale } from '@i18n/translations';
+import { translations } from '@i18n/translations';
+
+interface Props {
+  project: Project;
+  lang?: Locale;
+}
+
+const { project, lang = 'en' } = Astro.props;
+const t = translations[lang].projectsSection;
+
+const subtitle = lang === 'it' ? project.subtitleIt : project.subtitleEn;
+const description = lang === 'it' ? project.descriptionIt : project.descriptionEn;
+---
+
+<div class="group relative flex flex-col justify-between p-6 sb-panel sb-panel-hover">
+  <div>
+    <!-- Top Row: Badge/Highlight + Actions -->
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <div class="flex items-center gap-2">
+        {project.highlight && (
+          <span class="sb-chip-accent">
+            {project.highlight}
+          </span>
+        )}
+        {project.stats && (
+          <span class="text-xs font-sb-mono text-sb-muted-foreground bg-sb-secondary px-2 py-0.5 rounded-sb-sm border border-sb-border">
+            {project.stats}
+          </span>
+        )}
+      </div>
+
+      <!-- Links: Live / GitHub -->
+      <div class="flex items-center gap-1.5">
+        {project.repoUrl && (
+          <a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sb-muted-foreground hover:text-sb-foreground p-1.5 rounded-sb-md hover:bg-sb-secondary transition-colors"
+            title={t.viewCode}
+            aria-label={`${t.viewCode}: ${project.title}`}
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+            </svg>
+          </a>
+        )}
+
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sb-muted-foreground hover:text-sb-foreground p-1.5 rounded-sb-md hover:bg-sb-secondary transition-colors"
+            title={t.visitProject}
+            aria-label={`${t.visitProject}: ${project.title}`}
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
+
+    <!-- Title & Subtitle -->
+    <h3 class="text-base sm:text-lg font-semibold text-sb-foreground group-hover:text-sb-foreground transition-colors">
+      {project.liveUrl || project.repoUrl ? (
+        <a
+          href={project.liveUrl || project.repoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="focus:outline-hidden inline-flex items-center gap-1.5"
+        >
+          <span>{project.title}</span>
+          <span class="text-xs text-sb-muted-foreground font-sb-mono opacity-0 group-hover:opacity-100 transition-opacity">&nearr;</span>
+        </a>
+      ) : (
+        <span>{project.title}</span>
+      )}
+    </h3>
+
+    {subtitle && (
+      <p class="text-xs font-sb-mono text-sb-muted-foreground/80 mt-1">
+        {subtitle}
+      </p>
+    )}
+
+    <!-- Description -->
+    <p class="text-xs sm:text-sm text-sb-muted-foreground mt-3 leading-relaxed">
+      {description}
+    </p>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="flex flex-wrap gap-1.5 mt-5 pt-3.5 border-t border-sb-border/60">
+    {project.technologies.map((tech) => (
+      <span class="text-[11px] font-sb-mono text-sb-muted-foreground/90 bg-sb-muted px-2 py-0.5 rounded-sb-sm border border-sb-border">
+        {tech}
+      </span>
+    ))}
+  </div>
+</div>

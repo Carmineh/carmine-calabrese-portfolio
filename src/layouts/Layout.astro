@@ -1,33 +1,76 @@
 ---
-import "@styles/global.css";
-import { Font } from "astro:assets";
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import type { Locale } from '@i18n/translations';
+import '@styles/global.css';
+import { features } from '@data/site';
+import { Font } from 'astro:assets';
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
+  lang?: Locale;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
+  noindex?: boolean;
 }
 
 const {
-  title,
-  description = "A lightweight, content-focused Astro starter for fast, SEO-friendly static sites.",
+  title = "Carmine Calabrese | Software Engineer & Security Enthusiast",
+  description = "Personal portfolio, software engineering projects, research at IEEE SANER, and penetration testing notes by Carmine Calabrese.",
+  lang = 'en',
+  type = 'website',
+  publishedTime,
+  noindex = false,
 } = Astro.props;
+
+// Canonical + alternate-language URLs (EN lives at /, IT under /it/)
+const path = Astro.url.pathname;
+const enPath = path.replace(/^\/it(\/|$)/, '/');
+const itPath = enPath === '/' ? '/it/' : `/it${enPath}`;
+const canonical = new URL(path, Astro.site);
+const ogImage = new URL('/og-image.png', Astro.site);
 ---
 
 <!doctype html>
-<html lang="it">
+<html lang={lang} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
-    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <meta name="theme-color" content="#111111" />
     <Font cssVariable="--sb-font-sans" preload />
     <Font cssVariable="--sb-font-display" preload />
     <Font cssVariable="--sb-font-mono" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Carmine Calabrese" />
+    {noindex && <meta name="robots" content="noindex" />}
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+    <link rel="alternate" hreflang="it" href={new URL(itPath, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(enPath, Astro.site)} />
+    {features.articles && <link rel="alternate" type="application/rss+xml" title="Carmine Calabrese – Articles" href="/rss.xml" />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Carmine Calabrese" />
+    <meta property="og:locale" content={lang === 'it' ? 'it_IT' : 'en_US'} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body
-    class="bg-sb-background text-sb-foreground font-sb-sans antialiased overflow-x-hidden"
-  >
-    <slot />
+  <body class="flex flex-col min-h-screen font-sb-sans antialiased overflow-x-hidden">
+    <Navbar lang={lang} />
+    <main class="grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-10">
+      <slot />
+    </main>
+    <Footer lang={lang} />
   </body>
 </html>

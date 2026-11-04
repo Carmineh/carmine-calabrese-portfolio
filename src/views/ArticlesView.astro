@@ -1,0 +1,117 @@
+---
+import Layout from '@layouts/Layout.astro';
+import ArticleCard from '@components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { articleCategories, type ArticleCategory } from '@data/articleCategories';
+import type { Locale } from '@i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const text = {
+  en: {
+    title: 'Articles | Carmine Calabrese',
+    description: 'Notes on what I learn along the way: penetration testing write-ups, DevSecOps and software engineering.',
+    heading: 'Articles',
+    intro: 'A logbook of what I learn along the way, from penetration testing labs and CTFs to DevSecOps and software engineering.',
+    all: 'All',
+    emptyFilter: 'No articles in this category yet.',
+    emptyTitle: 'Nothing here yet',
+    emptyText: 'The first write-ups are on their way. Come back soon!',
+  },
+  it: {
+    title: 'Articoli | Carmine Calabrese',
+    description: 'Appunti su quello che imparo: write-up di penetration testing, DevSecOps e software engineering.',
+    heading: 'Articoli',
+    intro: 'Un diario di quello che imparo lungo il percorso: laboratori di penetration testing e CTF, DevSecOps e software engineering.',
+    all: 'Tutti',
+    emptyFilter: 'Ancora nessun articolo in questa categoria.',
+    emptyTitle: 'Ancora niente qui',
+    emptyText: 'I primi write-up sono in arrivo. Torna a trovarmi presto!',
+  },
+}[lang];
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+// Only show filters for categories that actually have articles
+const countBy = (id: string) => articles.filter((a) => a.data.category === id).length;
+const filters = [
+  { id: 'all', label: text.all, count: articles.length },
+  ...(Object.keys(articleCategories) as ArticleCategory[])
+    .filter((id) => countBy(id) > 0)
+    .map((id) => ({ id, label: articleCategories[id][lang], count: countBy(id) })),
+];
+---
+
+<Layout lang={lang} title={text.title} description={text.description}>
+  <div class="space-y-8">
+    <div>
+      <h1 class="sb-display text-5xl sm:text-7xl">{text.heading}<span class="sb-dot">.</span></h1>
+      <p class="text-sm sm:text-base text-sb-muted-foreground mt-3 max-w-2xl leading-relaxed">{text.intro}</p>
+
+      {articles.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-6">
+          {filters.map((f) => (
+            <button
+              type="button"
+              data-category={f.id}
+              aria-pressed={f.id === 'all' ? 'true' : 'false'}
+              class="filter-btn px-3 py-1.5 rounded-sb-md text-xs font-sb-mono transition-colors border border-sb-border text-sb-muted-foreground hover:text-sb-foreground hover:border-sb-border-strong aria-pressed:bg-sb-foreground aria-pressed:border-sb-foreground aria-pressed:text-sb-background"
+            >
+              {f.label} <span class="opacity-70">({f.count})</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+    {
+      articles.length > 0 ? (
+        <>
+          <div class="grid grid-cols-1 gap-3.5">
+            {articles.map((article) => (
+              <div data-article-category={article.data.category} class="article-item">
+                <ArticleCard article={article} lang={lang} />
+              </div>
+            ))}
+          </div>
+          <p id="no-articles-message" class="hidden text-center py-12 text-sb-muted-foreground text-sm">
+            {text.emptyFilter}
+          </p>
+        </>
+      ) : (
+        <div class="sb-panel p-10 text-center">
+          <p class="font-sb-mono text-sm text-sb-primary">$ ls ./articles<br /><span class="text-sb-muted-foreground">total 0</span></p>
+          <h2 class="text-lg font-semibold text-sb-foreground mt-4">{text.emptyTitle}</h2>
+          <p class="text-sm text-sb-muted-foreground mt-1">{text.emptyText}</p>
+        </div>
+      )
+    }
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const items = document.querySelectorAll<HTMLElement>('.article-item');
+    const emptyMsg = document.getElementById('no-articles-message');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const selected = btn.dataset.category;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+
+        let visible = 0;
+        items.forEach((item) => {
+          const show = selected === 'all' || item.dataset.articleCategory === selected;
+          item.hidden = !show;
+          if (show) visible++;
+        });
+        emptyMsg?.classList.toggle('hidden', visible > 0);
+      });
+    });
+  </script>
+</Layout>

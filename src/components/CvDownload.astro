@@ -1,0 +1,74 @@
+---
+/**
+ * "Download CV" button with a small dropdown to pick the language.
+ * PDFs live in public/cv/ (personal data such as phone and date of birth removed).
+ */
+import type { Locale } from '@i18n/translations';
+
+interface Props {
+  lang: Locale;
+  label?: string;
+}
+
+const { lang, label } = Astro.props;
+
+const text = {
+  en: { button: 'Download CV', en: 'English', it: 'Italian' },
+  it: { button: 'Scarica CV', en: 'Inglese', it: 'Italiano' },
+}[lang];
+
+const options = [
+  { code: 'EN', name: text.en, href: '/cv/Carmine-Calabrese-CV-EN.pdf' },
+  { code: 'IT', name: text.it, href: '/cv/Carmine-Calabrese-CV-IT.pdf' },
+];
+// Offer the page language first
+if (lang === 'it') options.reverse();
+---
+
+<details class="cv-download relative inline-block">
+  <summary
+    class="list-none cursor-pointer select-none inline-flex items-center gap-2 px-4 py-2.5 rounded-sb-md bg-sb-primary hover:bg-sb-primary-hover text-sb-primary-foreground font-medium text-sm transition-colors"
+  >
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"></path>
+    </svg>
+    {label ?? text.button}
+    <svg class="chevron w-3.5 h-3.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"></path>
+    </svg>
+  </summary>
+
+  <div class="absolute left-0 mt-2 w-48 z-40 p-1 rounded-sb-md border border-sb-border-strong bg-sb-card">
+    {
+      options.map((o) => (
+        <a
+          href={o.href}
+          download
+          class="flex items-center justify-between gap-3 px-3 py-2 rounded-sb-sm text-sm text-sb-foreground hover:bg-sb-secondary transition-colors"
+        >
+          <span>{o.name}</span>
+          <span class="text-[11px] font-sb-mono text-sb-muted-foreground border border-sb-border rounded-sb-sm px-1.5 py-0.5">{o.code} · PDF</span>
+        </a>
+      ))
+    }
+  </div>
+</details>
+
+<style>
+  .cv-download summary::-webkit-details-marker {
+    display: none;
+  }
+  .cv-download[open] .chevron {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  // Close the dropdown when clicking outside of it or pressing Escape
+  const close = (except?: Element) =>
+    document.querySelectorAll('details.cv-download[open]').forEach((d) => {
+      if (d !== except) d.removeAttribute('open');
+    });
+  document.addEventListener('click', (e) => close((e.target as Element).closest('details.cv-download') ?? undefined));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && close());
+</script>

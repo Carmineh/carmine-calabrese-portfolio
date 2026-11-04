@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '@i18n/translations';
+import { dateLocales, localePrefix } from '@i18n/translations';
+import { articleCategories } from '@data/articleCategories';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  lang?: Locale;
+}
+
+const { article, lang = 'en' } = Astro.props;
+const { data, id } = article;
+
+const formattedDate = new Intl.DateTimeFormat(dateLocales[lang], {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+}).format(data.pubDate);
+---
+
+<article class="group p-5 sb-panel sb-panel-hover">
+  <div class="flex flex-wrap items-center gap-2 mb-2.5 text-xs">
+    <time datetime={data.pubDate.toISOString()} class="text-sb-muted-foreground font-sb-mono">
+      {formattedDate}
+    </time>
+    <span class="text-sb-border">•</span>
+    <span class="sb-chip">
+      {articleCategories[data.category][lang]}
+    </span>
+
+    {data.readingTime && (
+      <>
+        <span class="text-sb-border">•</span>
+        <span class="text-xs text-sb-muted-foreground/70 font-sb-mono">
+          {data.readingTime}
+        </span>
+      </>
+    )}
+
+    {data.lang !== lang && (
+      <span class="text-[10px] font-sb-mono uppercase text-sb-muted-foreground/80 px-1.5 py-0.5 rounded-sb-sm border border-sb-border">
+        {data.lang}
+      </span>
+    )}
+  </div>
+
+  <h3 class="text-base sm:text-lg font-semibold text-sb-foreground transition-colors">
+    <a href={`${localePrefix(lang)}/articles/${id}/`} class="focus:outline-hidden">
+      {data.title}
+    </a>
+  </h3>
+
+  <p class="text-xs sm:text-sm text-sb-muted-foreground mt-2 line-clamp-2 leading-relaxed">
+    {data.description}
+  </p>
+
+  {data.tags.length > 0 && (
+    <div class="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-sb-border/50">
+      {data.tags.map((tag) => (
+        <span class="text-[11px] text-sb-muted-foreground/70 font-sb-mono">#{tag}</span>
+      ))}
+    </div>
+  )}
+</article>

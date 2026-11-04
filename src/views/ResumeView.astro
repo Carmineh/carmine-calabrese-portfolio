@@ -1,0 +1,344 @@
+---
+import Layout from '@layouts/Layout.astro';
+import CvDownload from '@components/CvDownload.astro';
+import { projects } from '@data/projects';
+import type { Locale } from '@i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const it = lang === 'it';
+
+const profile = {
+  name: 'Carmine Calabrese',
+  email: 'carmine.calabrese99@gmail.com',
+  github: 'https://github.com/Carmineh',
+  linkedin: 'https://linkedin.com/in/carmine-calabrese-8929bb189',
+};
+
+const text = {
+  en: {
+    title: 'Resume | Carmine Calabrese',
+    description: 'Resume of Carmine Calabrese: education, university projects and research, skills, languages and interests.',
+    role: 'Software Engineer & Security Enthusiast',
+    location: 'Naples, Italy',
+    sections: ['Professional Summary', 'Education', 'University Projects & Research', 'Skills', 'Languages', 'Hobbies & Interests'],
+    summary:
+      "Master's Degree candidate in Computer Science (Software Engineering and IT Management). Combines skills in software design, maintenance and project management with hands-on experience and interest in security-oriented activities, developed through university projects and research activities.",
+    coursework: 'Core coursework',
+    education: [
+      {
+        degree: 'M.Sc. in Computer Science – Software Engineering and IT Management',
+        institution: 'University of Salerno – Fisciano (SA), Italy',
+        period: 'March 2024 – December 2026',
+        grade: 'GPA: 28.2 / 30 (weighted average)',
+        coursework:
+          'Software Project Management · Software Engineering, Management & Evolution · Software Dependability · Penetration Testing and Ethical Hacking · Data Security',
+      },
+      {
+        degree: 'B.Sc. in Computer Science',
+        institution: 'University of Salerno – Fisciano (SA), Italy',
+        period: '2018 – 2024',
+        coursework:
+          'C Programming · Programming & Data Structures · Object-Oriented Programming · Database Systems · Software Engineering · Algorithm Design',
+      },
+    ],
+    projects: [
+      {
+        title: 'Software Maintenance & Mutation Testing – MuSe',
+        badge: 'IEEE SANER 2026',
+        description:
+          'Extended the MuSe mutation testing tool by developing a wrapper plugin for Remix IDE (JavaScript), assessing the effectiveness of Solidity smart contract test suites. Published and presented at the 2026 IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER).',
+      },
+      {
+        title: "Master's Thesis – DAPA",
+        badge: 'M.Sc. Thesis',
+        description:
+          'Decentralized Anonymous Authentication with Privacy-Preserving Accountability for Connected Vehicles. Designed and benchmarked a decentralized framework combining blockchain and Zero-Knowledge Proofs (ZKP) to ensure vehicular privacy with accountable revocation.',
+      },
+      {
+        title: 'Project Management – EcoHouses',
+        badge: 'Team of 7',
+        description:
+          'Project Manager of a 7-student Scrum team: sprint planning, backlog and deadline tracking, with hands-on contributions to the architecture and the React/PostgreSQL implementation.',
+      },
+      {
+        title: 'Penetration Testing & Ethical Hacking – Deathnote 1',
+        badge: 'VulnHub',
+        description:
+          'Full assessment of a VulnHub machine, from reconnaissance and vulnerability mapping (Nmap, WPScan, Nessus, OWASP ZAP) to SSH exploitation and privilege escalation (LinPEAS, sudo misconfigurations).',
+      },
+      {
+        title: 'Secure Programming CTF – Nebula Level 14',
+        badge: 'Exploit Education',
+        description:
+          'Black-box reverse engineering of a position-dependent encryption algorithm, an automated Python decryptor to recover credentials, and privilege escalation on Linux.',
+      },
+    ],
+    skills: [
+      { category: 'Programming Languages', items: 'Java · Python · C · JavaScript' },
+      { category: 'Software Engineering', items: 'Software Maintenance & Evolution · TDD · Mutation Testing · Scrum' },
+      { category: 'Cybersecurity & Pentesting', items: 'Penetration Testing · Vulnerability Assessment · Kali Linux · Nmap · Nessus · OWASP ZAP · WPScan · LinPEAS' },
+      { category: 'Web & Databases', items: 'HTML · CSS · React · MySQL · PostgreSQL · PostGIS · MongoDB' },
+      { category: 'Tools, DevOps & Blockchain', items: 'Git · GitHub · Docker · GitHub Actions · CI/CD · Blockchain · Zero-Knowledge Proofs' },
+    ],
+    languages: [
+      { name: 'Italian', level: 'Native' },
+      { name: 'English', level: 'B2 (Upper Intermediate)' },
+    ],
+    hobbies: [
+      {
+        title: 'Gaming & game development',
+        description:
+          'Passionate about video games, with personal experience developing games and open-source projects in this field.',
+      },
+      {
+        title: 'Technology & innovation',
+        description: 'Curious about new technologies and self-taught in tools beyond the university curriculum.',
+      },
+    ],
+    hobbyProjects: 'Projects born from these interests',
+  },
+  it: {
+    title: 'Curriculum | Carmine Calabrese',
+    description: 'Curriculum di Carmine Calabrese: formazione, progetti universitari e di ricerca, competenze, lingue e interessi.',
+    role: 'Software Engineer & Appassionato di Cybersecurity',
+    location: 'Napoli, Italia',
+    sections: ['Profilo Professionale', 'Istruzione e Formazione', 'Progetti Universitari e Ricerca', 'Competenze', 'Lingue', 'Hobby e Interessi'],
+    summary:
+      'Laureando Magistrale in Informatica (Software Engineering e IT Management). Unisco competenze nella progettazione e manutenzione del software e nel project management a esperienza pratica e interesse per attività legate alla sicurezza, maturate attraverso progetti universitari e attività di ricerca.',
+    coursework: 'Principali insegnamenti',
+    education: [
+      {
+        degree: 'Laurea Magistrale in Informatica – Software Engineering e IT Management',
+        institution: 'Università degli Studi di Salerno – Fisciano (SA)',
+        period: 'Marzo 2024 – Dicembre 2026',
+        grade: 'Media ponderata: 28.2 / 30',
+        coursework:
+          'Gestione dei Progetti Software · Ingegneria, Gestione ed Evoluzione del Software · Software Dependability · Penetration Testing and Ethical Hacking · Sicurezza dei Dati',
+      },
+      {
+        degree: 'Laurea Triennale in Informatica',
+        institution: 'Università degli Studi di Salerno – Fisciano (SA)',
+        period: '2018 – 2024',
+        coursework:
+          'Programmazione C · Programmazione e Strutture Dati · Programmazione Object Oriented · Basi di Dati · Ingegneria del Software · Progettazione di Algoritmi',
+      },
+    ],
+    projects: [
+      {
+        title: 'Software Maintenance e Mutation Testing – MuSe',
+        badge: 'IEEE SANER 2026',
+        description:
+          "Evoluzione del tool di mutation testing MuSe tramite un plugin wrapper per Remix IDE (JavaScript), per valutare l'efficacia delle test suite di smart contract Solidity. Lavoro pubblicato e presentato alla 2026 IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER).",
+      },
+      {
+        title: 'Tesi Magistrale – DAPA',
+        badge: 'Tesi M.Sc.',
+        description:
+          'Decentralized Anonymous Authentication with Privacy-Preserving Accountability for Connected Vehicles. Progettazione e valutazione sperimentale di un sistema decentralizzato che unisce blockchain e Zero-Knowledge Proofs (ZKP) per garantire la privacy dei veicoli con meccanismi di revoca verificabili.',
+      },
+      {
+        title: 'Project Management – EcoHouses',
+        badge: 'Team di 7',
+        description:
+          "Project Manager di un team Scrum di 7 studenti: sprint planning, gestione del backlog e delle scadenze, con contributo diretto all'architettura e allo sviluppo in React/PostgreSQL.",
+      },
+      {
+        title: 'Penetration Testing & Ethical Hacking – Deathnote 1',
+        badge: 'VulnHub',
+        description:
+          "Assessment completo di una macchina VulnHub, dalla ricognizione e vulnerability mapping (Nmap, WPScan, Nessus, OWASP ZAP) all'exploitation SSH e alla privilege escalation (LinPEAS, misconfigurazioni sudo).",
+      },
+      {
+        title: 'Secure Programming CTF – Nebula Level 14',
+        badge: 'Exploit Education',
+        description:
+          'Reverse engineering black-box di un algoritmo di cifratura dipendente dalla posizione, sviluppo di un decryptor automatico in Python per recuperare le credenziali e privilege escalation su Linux.',
+      },
+    ],
+    skills: [
+      { category: 'Linguaggi di programmazione', items: 'Java · Python · C · JavaScript' },
+      { category: 'Software Engineering', items: 'Software Maintenance & Evolution · TDD · Mutation Testing · Scrum' },
+      { category: 'Cybersecurity & Pentesting', items: 'Penetration Testing · Vulnerability Assessment · Kali Linux · Nmap · Nessus · OWASP ZAP · WPScan · LinPEAS' },
+      { category: 'Web e Database', items: 'HTML · CSS · React · MySQL · PostgreSQL · PostGIS · MongoDB' },
+      { category: 'Strumenti, DevOps e Blockchain', items: 'Git · GitHub · Docker · GitHub Actions · CI/CD · Blockchain · Zero-Knowledge Proofs' },
+    ],
+    languages: [
+      { name: 'Italiano', level: 'Madrelingua' },
+      { name: 'Inglese', level: 'B2 (Intermedio superiore)' },
+    ],
+    hobbies: [
+      {
+        title: 'Gaming e sviluppo di videogiochi',
+        description:
+          'Appassionato di videogiochi, con esperienze personali nello sviluppo di giochi e nella realizzazione di progetti open source in questo ambito.',
+      },
+      {
+        title: 'Tecnologia e innovazione',
+        description:
+          "Interesse per l'esplorazione di nuove tecnologie e per l'apprendimento autonomo di strumenti al di fuori del percorso universitario.",
+      },
+    ],
+    hobbyProjects: 'Progetti nati da queste passioni',
+  },
+}[lang];
+
+// Personal projects are shown only under "Hobbies & Interests", not among university work
+const hobbyProjects = projects.filter((pr) => pr.category === 'personal');
+---
+
+<Layout lang={lang} title={text.title} description={text.description}>
+  <div class="space-y-12">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 pb-8 border-b border-sb-border">
+      <div>
+        <h1 class="sb-display text-5xl sm:text-7xl">{profile.name}<span class="sb-dot">.</span></h1>
+        <p class="font-sb-display text-lg text-sb-foreground mt-3">{text.role}</p>
+        <p class="text-xs text-sb-muted-foreground mt-3 flex flex-wrap gap-x-2 gap-y-1">
+          <span>{text.location}</span>
+          <span>•</span>
+          <a href={`mailto:${profile.email}`} class="hover:text-sb-foreground transition-colors">{profile.email}</a>
+          <span>•</span>
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-sb-foreground transition-colors">LinkedIn</a>
+          <span>•</span>
+          <a href={profile.github} target="_blank" rel="noopener noreferrer" class="hover:text-sb-foreground transition-colors">GitHub</a>
+        </p>
+      </div>
+      <CvDownload lang={lang} label={it ? 'Scarica PDF' : 'Download PDF'} />
+    </div>
+
+    <!-- Summary -->
+    <section>
+      <h2 class="resume-heading"><span>01.</span> {text.sections[0]}</h2>
+      <p class="text-sm text-sb-muted-foreground leading-relaxed max-w-3xl">{text.summary}</p>
+    </section>
+
+    <!-- Education -->
+    <section>
+      <h2 class="resume-heading"><span>02.</span> {text.sections[1]}</h2>
+      <div class="space-y-4">
+        {
+          text.education.map((edu) => (
+            <div class="sb-panel p-5">
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                <h3 class="text-sm sm:text-base font-semibold text-sb-foreground">{edu.degree}</h3>
+                <span class="shrink-0 text-xs font-sb-mono text-sb-muted-foreground">{edu.period}</span>
+              </div>
+              <p class="text-xs text-sb-muted-foreground font-sb-mono mt-1">{edu.institution}</p>
+              {edu.grade && <p class="text-xs text-sb-foreground font-medium mt-1.5">{edu.grade}</p>}
+              <p class="text-xs text-sb-muted-foreground mt-2 leading-relaxed">
+                <span class="text-sb-muted-foreground/70 font-sb-mono">{text.coursework}:</span> {edu.coursework}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- University projects -->
+    <section>
+      <h2 class="resume-heading"><span>03.</span> {text.sections[2]}</h2>
+      <div class="space-y-6">
+        {
+          text.projects.map((pr) => (
+            <div class="relative pl-6 border-l border-sb-border">
+              <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-sb-primary" />
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
+                <h3 class="text-sm sm:text-base font-semibold text-sb-foreground">{pr.title}</h3>
+                <span class="sb-chip-accent self-start sm:self-auto shrink-0">
+                  {pr.badge}
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-sb-muted-foreground leading-relaxed mt-1.5">{pr.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section>
+      <h2 class="resume-heading"><span>04.</span> {text.sections[3]}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {
+          text.skills.map((s) => (
+            <div class="sb-panel p-4">
+              <h3 class="sb-eyebrow mb-2">{s.category}</h3>
+              <p class="text-xs text-sb-muted-foreground leading-relaxed">{s.items}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Languages -->
+    <section>
+      <h2 class="resume-heading"><span>05.</span> {text.sections[4]}</h2>
+      <div class="flex flex-wrap gap-3">
+        {
+          text.languages.map((l) => (
+            <div class="sb-panel px-4 py-3 text-xs">
+              <span class="font-semibold text-sb-foreground">{l.name}:</span> <span class="text-sb-muted-foreground">{l.level}</span>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Hobbies & interests, with the personal projects they led to -->
+    <section>
+      <h2 class="resume-heading"><span>06.</span> {text.sections[5]}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {
+          text.hobbies.map((h) => (
+            <div class="sb-panel p-4">
+              <h3 class="text-sm font-semibold text-sb-foreground">{h.title}</h3>
+              <p class="text-xs text-sb-muted-foreground mt-1.5 leading-relaxed">{h.description}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h3 class="sb-eyebrow mt-8 mb-4">{text.hobbyProjects}</h3>
+      <div class="space-y-6">
+        {
+          hobbyProjects.map((pr) => {
+            const href = pr.liveUrl || pr.repoUrl;
+            return (
+              <div class="relative pl-6 border-l border-sb-border">
+                <div class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-sb-primary" />
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5">
+                  <h3 class="text-sm sm:text-base font-semibold text-sb-foreground">
+                    {href ? (
+                      <a href={href} target="_blank" rel="noopener noreferrer" class="hover:underline decoration-sb-primary underline-offset-4">
+                        {pr.title} <span class="text-sb-muted-foreground">&nearr;</span>
+                      </a>
+                    ) : (
+                      pr.title
+                    )}
+                  </h3>
+                  {pr.highlight && <span class="sb-chip-accent self-start sm:self-auto shrink-0">{pr.highlight}</span>}
+                </div>
+                <p class="text-xs sm:text-sm text-sb-muted-foreground leading-relaxed mt-1.5">{it ? pr.descriptionIt : pr.descriptionEn}</p>
+              </div>
+            );
+          })
+        }
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  @reference "../styles/global.css";
+
+  .resume-heading {
+    @apply flex items-baseline gap-3 font-sb-display text-xl font-medium text-sb-foreground mb-5 pb-3 border-b border-sb-border;
+  }
+  .resume-heading span {
+    @apply font-sb-mono text-sm text-sb-primary;
+  }
+</style>

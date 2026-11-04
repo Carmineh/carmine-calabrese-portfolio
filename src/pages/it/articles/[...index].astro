@@ -1,0 +1,11 @@
+---
+import ArticlesView from '@views/ArticlesView.astro';
+import { features } from '@data/site';
+
+// Rest param so the page is only generated when the Articles section is enabled
+export function getStaticPaths() {
+  return features.articles ? [{ params: { index: undefined } }] : [];
+}
+---
+
+<ArticlesView lang="it" />

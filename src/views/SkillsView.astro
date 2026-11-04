@@ -1,0 +1,105 @@
+---
+import Layout from '@layouts/Layout.astro';
+import TechIcon from '@components/TechIcon.astro';
+import { skillCategories, skillLevels, type SkillLevel } from '@data/skills';
+import type { Locale } from '@i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const it = lang === 'it';
+
+const text = {
+  en: {
+    title: 'Skills | Carmine Calabrese',
+    description: 'Programming languages, software engineering practices, offensive security tools and DevOps skills of Carmine Calabrese.',
+    heading: 'Skills & Competencies',
+    intro: 'What I know and use, grouped by area. Each one is backed by a course, a research project or something I have built.',
+    legend: 'Honest self-assessment',
+  },
+  it: {
+    title: 'Competenze | Carmine Calabrese',
+    description: 'Linguaggi di programmazione, pratiche di software engineering, strumenti di sicurezza offensiva e DevOps di Carmine Calabrese.',
+    heading: 'Competenze',
+    intro: 'Cosa conosco e uso, raggruppato per area. Ognuna nasce da un corso, un progetto di ricerca o qualcosa che ho costruito.',
+    legend: 'Autovalutazione sincera',
+  },
+}[lang];
+
+const levels = [1, 2, 3, 4, 5] as SkillLevel[];
+---
+
+<Layout lang={lang} title={text.title} description={text.description}>
+  <div class="space-y-12">
+    <div>
+      <h1 class="sb-display text-5xl sm:text-7xl">{text.heading}<span class="sb-dot">.</span></h1>
+      <p class="text-sm sm:text-base text-sb-muted-foreground mt-3 max-w-2xl leading-relaxed">{text.intro}</p>
+
+      <!-- Level legend -->
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-6">
+        <span class="sb-eyebrow">{text.legend}</span>
+        {
+          levels.map((l) => (
+            <span class="inline-flex items-center gap-2 text-xs text-sb-muted-foreground">
+              <span class="flex gap-0.5" aria-hidden="true">
+                {levels.map((n) => <span class={`w-2.5 h-1 rounded-sb-sm ${n <= l ? 'bg-sb-primary' : 'bg-sb-border'}`} />)}
+              </span>
+              {skillLevels[l][lang]}
+            </span>
+          ))
+        }
+      </div>
+
+      <!-- Quick jump to a category -->
+      <div class="flex flex-wrap gap-2 mt-6">
+        {
+          skillCategories.map((c) => (
+            <a
+              href={`#${c.id}`}
+              class="px-3 py-1.5 rounded-sb-md text-xs font-sb-mono border border-sb-border text-sb-muted-foreground hover:text-sb-foreground hover:border-sb-border-strong transition-colors"
+            >
+              {it ? c.titleIt : c.titleEn}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      skillCategories.map((category) => (
+        <section id={category.id} class="scroll-mt-24 space-y-4">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-sb-foreground">{it ? category.titleIt : category.titleEn}</h2>
+            <p class="text-sm text-sb-muted-foreground mt-1 max-w-2xl">{it ? category.descriptionIt : category.descriptionEn}</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[...category.items].sort((a, b) => b.level - a.level).map((item) => (
+              <div class="sb-panel sb-panel-hover flex items-start gap-3.5 p-4">
+                <div class="w-10 h-10 rounded-sb-md bg-sb-muted border border-sb-border flex items-center justify-center text-sb-foreground shrink-0">
+                  <TechIcon name={item.icon} class="w-5 h-5" />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-sm font-semibold text-sb-foreground">{item.name}</h3>
+                  {(it ? item.descriptionIt : item.descriptionEn) && (
+                    <p class="text-xs text-sb-muted-foreground mt-1 leading-normal">{it ? item.descriptionIt : item.descriptionEn}</p>
+                  )}
+                  <div class="flex items-center gap-2 mt-3" title={skillLevels[item.level][lang]}>
+                    <span class="flex gap-0.5" aria-hidden="true">
+                      {levels.map((n) => <span class={`w-4 h-1 rounded-sb-sm ${n <= item.level ? 'bg-sb-primary' : 'bg-sb-border'}`} />)}
+                    </span>
+                    <span class="font-sb-mono text-[11px] text-sb-muted-foreground">
+                      <span class="sr-only">{text.legend}: </span>{skillLevels[item.level][lang]}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Layout>

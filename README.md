@@ -1,32 +1,33 @@
 <div align="center">
-  <div style="background: white; padding: 20px; border-radius: 12px;  display: inline-block;">
-    <img src="https://i.ibb.co/7NWkfrDL/sb-template-astro.jpg" alt="SB-Template Astro Logo" width="300" style="border-radius: 12px;">
-  </div>
 
+# 👀
 
-  # SB-Template Astro
+## Why are you watching the repo?
 
-  ![Version](https://img.shields.io/badge/version-0.0.1-blue)
-  [![Node.js](https://img.shields.io/badge/node-%3E%3D22.12.0-brightgreen)](https://nodejs.org)
-  [![Astro](https://img.shields.io/badge/astro-7.3.1-BC52EE?logo=astro)](https://astro.build)
-  [![TypeScript](https://img.shields.io/badge/typescript-strict-3178C6?logo=typescript)](https://www.typescriptlang.org)
-  ![License](https://img.shields.io/badge/license-MIT-green)
+The interesting part is over there 👉 **[carmine-calabrese.it](https://carmine-calabrese.it)**
 
-  **Stop wasting time on boilerplate. Start building features.**
+<sub>Projects, skills, CV and the stuff I learn while trying to break things (legally).</sub>
 
-  An Astro starter template, initialised from the official `minimal` template. Design system, reusable components, i18n and the rest of the opinionated setup are added incrementally — see the empty sections below for what's still to come.
+<br />
+
+Built on top of **[sb-template-astro](https://github.com/stefanBid/sb-template-astro)** by [Stefano Biddau](https://github.com/stefanBid) ⭐
 
 </div>
 
 ---
 
+<details>
+<summary>Still here? Fine, here's how it works 🛠️</summary>
+
+<br />
+
 ## Developer Notes
 
-> Internal knowledge base for contributors: known issues, gotchas and version decisions that aren't obvious from the code alone. Not part of the numbered docs below — update this section whenever something like this is discovered or resolved.
+> Known issues and non-obvious decisions. Update this section when something like this comes up.
 
-_Nothing logged yet._
-
----
+- **Dark only.** The template ships a light/dark toggle; this site is dark by design (the lime accent doesn't read well on white), so the toggle was removed and `<html>` always has the `.dark` class.
+- **Articles are hidden.** `features.articles` in `src/data/site.ts` is `false`: no nav link, no `/articles` pages, no RSS. Set it to `true` to publish the section again.
+- **CV PDFs are redacted.** The files in `public/cv/` have phone number, date of birth and signature removed. Re-export a redacted version whenever the CV changes and keep the same file names.
 
 ## Table of Contents
 
@@ -35,171 +36,79 @@ _Nothing logged yet._
 3. [Project Structure](#3-project-structure)
 4. [Design System](#4-design-system)
 5. [Routing](#5-routing)
-6. [Layouts](#6-layouts)
-7. [Pages](#7-pages)
-8. [Components](#8-components)
-9. [Composables & Utils](#9-composables--utils)
-10. [AI Tooling — Prompts & Instructions](#10-ai-tooling--prompts--instructions)
-11. [Deployment](#11-deployment)
-12. [Versioning](#12-versioning)
-13. [Dependencies](#13-dependencies)
-
----
+6. [Content](#6-content)
+7. [Deployment](#7-deployment)
 
 ## 1. Overview
 
-SB-Template Astro is meant to become an opinionated starting point for building new Astro sites — a pre-configured design system, reusable UI components, i18n and layouts, so future projects can skip scaffolding and go straight to features.
-
-Right now the repo is at its `minimal` starting point (`pnpm create astro@latest -- --template minimal`): a single homepage, no components, no design system, no i18n. This README follows the target structure the template will grow into; sections with nothing built yet are marked as such rather than filled with placeholder content.
-
-**Target audience:** Astro developers who want a clean, consistent foundation without bikeshedding on folder structure, naming conventions, or design tokens — once the template is actually built out.
-
----
+Bilingual (EN / IT) personal portfolio: projects, skills with a self-assessment, resume with downloadable CV, and an (optional) articles section for write-ups. Static site, no backend.
 
 ## 2. Getting Started
 
-### Prerequisites
-
-- **Node.js** ≥ 22.12.0
-- **pnpm**
-
-### Installation
+**Prerequisites:** Node.js ≥ 22.12.0, pnpm.
 
 ```bash
-git clone <this-repo-url> my-project
-cd my-project
 pnpm install
+pnpm dev          # http://localhost:4321
+pnpm build        # static output in dist/
+pnpm check        # types + content schema
+pnpm lint         # ESLint
 ```
-
-### Development
-
-```bash
-pnpm dev
-```
-
-Visit **http://localhost:4321**.
-
-> Per [AGENTS.md](./AGENTS.md), AI assistants should start the dev server in background mode (`astro dev --background`) and manage it with `astro dev stop` / `astro dev status` / `astro dev logs`.
-
-### Available Commands
-
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start development server at `http://localhost:4321` |
-| `pnpm build` | Build for production (outputs to `dist/`) |
-| `pnpm preview` | Preview production build locally |
-| `pnpm astro ...` | Run Astro CLI commands (e.g. `astro add`, `astro check`) |
-
----
 
 ## 3. Project Structure
 
 ```
-├── astro.config.mjs        — Astro configuration
-├── package.json            — dependencies and scripts
-├── tsconfig.json           — TypeScript config, extends astro/tsconfigs/strict
-├── pnpm-workspace.yaml      — pnpm settings (allowBuilds: esbuild, sharp)
-├── public/
-│    favicon.ico
-│    favicon.svg
-└── src/
-     pages/
-       index.astro          — homepage
+src/
+  components/    UI pieces (Navbar, Footer, ProjectCard, TechIcon, CvDownload, ...)
+  content/       articles (Markdown) + _template*.md models
+  data/          projects, skills, article categories, feature switches
+  i18n/          shared UI strings (EN / IT)
+  layouts/       Layout.astro: <head>, SEO, fonts, navbar and footer
+  pages/         routes; IT pages live under pages/it/
+  styles/        theme.css, typography.css, prose.css
+  views/         page content shared by EN and IT (prop `lang`)
+public/          favicon, Open Graph image, robots.txt, cv/
 ```
 
-No `src/components/`, `src/layouts/`, `src/content/` or `src/assets/` yet — added as the template grows.
-
----
+Path aliases: `@components`, `@data`, `@i18n`, `@layouts`, `@styles`, `@views`.
 
 ## 4. Design System
 
-_Not set up yet._ No design tokens, colour palette, typography scale or utility classes exist in this template yet.
+Monochrome palette with a single lime accent, defined in `src/styles/theme.css` as `sb-*` tokens (`bg-sb-card`, `text-sb-muted-foreground`, `border-sb-border`, `text-sb-primary`...). Tailwind's default colours are disabled on purpose.
 
----
+Reusable classes live in `src/styles/typography.css` as `@utility`:
+
+| Class | Use |
+| --- | --- |
+| `sb-display` + `sb-dot` | Big headings ending with the lime full stop |
+| `sb-section-title` | Section headings |
+| `sb-eyebrow` | Small uppercase mono labels |
+| `sb-chip` / `sb-chip-accent` | Neutral / lime labels |
+| `sb-panel` + `sb-panel-hover` | Flat cards |
+| `sb-link` | Lime-underlined links |
+
+Fonts (Astro Fonts API, `astro.config.mjs`): Space Grotesk (display), Inter (text), JetBrains Mono (labels).
 
 ## 5. Routing
 
-Routing is handled by Astro's file-based routing. The file path inside `src/pages/` maps directly to the URL.
+English pages at `/`, Italian ones under `/it/`. Each page in `src/pages` is a one-line wrapper around a view in `src/views`, so content is written once and translated through a `text = { en, it }` object.
 
-### File → URL mapping
+## 6. Content
 
-| File path | URL | Notes |
-|---|---|---|
-| `src/pages/index.astro` | `/` | Homepage |
-| `src/pages/about.astro` | `/about` | Static page |
-| `src/pages/blog/[slug].astro` | `/blog/:slug` | Dynamic route |
-| `src/pages/[...slug].astro` | `/anything/deep` | Catch-all route |
+- **Projects:** `src/data/projects.ts` (array order = order on the site, academic first).
+- **Skills:** `src/data/skills.ts`, `level` from 1 to 5, `icon` is a key of `TechIcon.astro` (brand logos come from simple-icons).
+- **Articles:** copy `src/content/articles/_template.md` (or `_template-htb.md` for Hack The Box retired machines). Categories are in `src/data/articleCategories.ts`.
 
-No dynamic routes, middleware or i18n routing exist yet — see [Astro routing guide](https://docs.astro.build/en/guides/routing/) before adding any.
+## 7. Deployment
 
----
+Cloudflare Pages, connected to this repository: every push on `main` is built and published.
 
-## 6. Layouts
+| Setting | Value |
+| --- | --- |
+| Production branch | `main` |
+| Build command | `pnpm run build` |
+| Build output directory | `dist` |
 
-_Not set up yet._ No `src/layouts/` directory exists yet.
+Node is pinned by `.node-version`. The public URL is set in `astro.config.mjs` (`site`) and `public/robots.txt`.
 
----
-
-## 7. Pages
-
-Pages live in `src/pages/`. Currently only `index.astro`, containing static placeholder markup from the `minimal` template — no `<head>` metadata conventions, SEO helpers or i18n wiring have been established yet.
-
-### Available pages
-
-| Page | URL | Description |
-|---|---|---|
-| `index.astro` | `/` | Placeholder homepage from the Astro `minimal` template |
-
----
-
-## 8. Components
-
-_Not set up yet._ No `src/components/` directory exists yet.
-
----
-
-## 9. Composables & Utils
-
-_Not set up yet._ No shared utilities or composables exist yet.
-
----
-
-## 10. AI Tooling — Prompts & Instructions
-
-This repository ships with a single [`AGENTS.md`](./AGENTS.md) file at the project root (symlinked as `CLAUDE.md`) that gives any AI coding assistant context on the project. It currently covers only dev-server usage and links to Astro's own documentation.
-
-| File | Purpose |
-|---|---|
-| `AGENTS.md` (symlinked as `CLAUDE.md`) | Dev workflow (background dev server) and links to Astro docs |
-
-No project-specific conventions, design system tokens, component catalogue or documented workflows exist yet — this section will grow alongside the rest of the template.
-
----
-
-## 11. Deployment
-
-_Not set up yet._ No adapter, hosting preset or CI/CD pipeline is configured. `astro build` currently produces a static build in `dist/`.
-
----
-
-## 12. Versioning
-
-_Not set up yet._ No changelog automation or release pipeline is configured. Current version is `0.0.1` in `package.json`.
-
----
-
-## 13. Dependencies
-
-| Package | Version | Purpose |
-|---|---|---|
-| `astro` | ^7.3.1 | Core framework |
-
----
-
-<div align="center">
-
-Built with ❤️ by **Stefano Biddau**
-
-[stefanobiddau.com](https://stefanobiddau.com) · [@stefanoBid](https://github.com/stefanoBid)
-
-</div>
+</details>

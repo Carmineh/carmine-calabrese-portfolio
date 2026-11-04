@@ -1,0 +1,15 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout title="404 – Not Found | Carmine Calabrese" noindex>
+  <section class="py-20 text-center font-sb-mono">
+    <p class="text-sb-primary text-sm">$ curl -I {Astro.url.pathname}</p>
+    <h1 class="text-5xl sm:text-6xl font-bold text-sb-foreground mt-4">404</h1>
+    <p class="text-sb-muted-foreground mt-3">HTTP/1.1 404 Not Found — this page doesn't exist (anymore).</p>
+    <div class="flex flex-wrap justify-center gap-3 mt-8 text-sm">
+      <a href="/" class="px-4 py-2 rounded-sb-md bg-sb-primary hover:bg-sb-primary-hover text-sb-primary-foreground transition-colors">cd ~</a>
+      <a href="/projects/" class="px-4 py-2 rounded-sb-md bg-sb-card border border-sb-border text-sb-foreground hover:bg-sb-secondary transition-colors">ls ./projects</a>
+    </div>
+  </section>
+</Layout>

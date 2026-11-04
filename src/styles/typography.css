@@ -1,86 +1,80 @@
 /* ==========================================================================
-   TYPOGRAPHY
+   TYPOGRAPHY & UI BRICKS
 
-   Two tiers:
-   1) @layer base — default look per HTML tag, applies automatically, no
-                    class needed. Override per-instance with a utility
-                    class (utilities always win over base, no
-                    !important needed).
-   2) @utility     — every named class beyond the tag default, whether
-                    it's an atomic brick reused across unrelated
-                    elements or a single-spot heading recipe. Always
-                    self-contained: adding it to markup is enough,
-                    nothing else required.
-
-   Sizes are stepped by breakpoint (sm/md/lg/xl), not fluid clamp(), so
-   the scale stays predictable and controllable per screen range.
+   Two tiers (same convention as the template):
+   1) @layer base — default look per HTML tag, no class needed.
+   2) @utility     — named, self-contained classes (sb-*): adding the class
+                    to markup is enough.
    ========================================================================== */
 
 @layer base {
-  h1 {
-    @apply font-sb-display uppercase leading-[0.93];
-    @apply text-[2.7rem] md:text-[3rem] lg:text-[4rem] xl:text-[5rem] 2xl:text-[5.6rem];
-  }
-  h2 {
-    @apply font-sb-display uppercase leading-[0.93];
-    @apply text-[2rem] lg:text-[2.7rem];
-  }
-  h3 {
-    @apply font-extrabold text-[17px];
-  }
-  h4 {
-    @apply font-extrabold text-[16.5px];
-  }
-  p {
-    @apply text-sb-muted-foreground leading-relaxed;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sb-display font-medium tracking-tight text-sb-foreground;
   }
   code {
     @apply font-sb-mono;
   }
-  blockquote {
-    @apply font-sb-display uppercase leading-[1.08];
-    @apply text-[1.9rem] md:text-[2.3rem] lg:text-[3rem] xl:text-[3.4rem];
-  }
 }
 
 /* --------------------------------------------------------------------------
-   utility bricks — atomic, reused across unrelated elements
+   headings
    -------------------------------------------------------------------------- */
 
-/* mono eyebrow label, e.g. "// prima di iniziare" */
+/* Big display heading; the accent shows up only in the final dot (sb-dot) */
+@utility sb-display {
+  @apply font-sb-display font-medium tracking-[-0.04em] leading-[0.92] text-sb-foreground;
+}
+/* The lime full stop after names and page titles */
+@utility sb-dot {
+  @apply text-sb-primary;
+}
+/* Section heading (Home, Projects...) */
+@utility sb-section-title {
+  @apply font-sb-display text-2xl sm:text-3xl font-medium tracking-tight text-sb-foreground;
+}
+
+/* --------------------------------------------------------------------------
+   labels
+   -------------------------------------------------------------------------- */
+
+/* Small uppercase mono label above sections, e.g. "SOFTWARE ENGINEER → SECURITY" */
 @utility sb-eyebrow {
-  @apply font-sb-mono text-[12.5px];
+  @apply font-sb-mono text-[11px] uppercase tracking-[0.14em] text-sb-muted-foreground;
 }
-/* small mono tag, e.g. "01 · linting" */
-@utility sb-label-mono-sm {
-  @apply font-sb-mono text-[11px];
+/* Neutral label: tags, metadata */
+@utility sb-chip {
+  @apply inline-flex items-center whitespace-nowrap rounded-sb-sm border border-sb-border px-2 py-0.5 font-sb-mono text-[11px] text-sb-muted-foreground;
 }
-/* mono label with weight, e.g. "src/components" */
-@utility sb-label-mono-md {
-  @apply font-sb-mono text-[13px] font-semibold text-sb-primary;
-}
-/* big display digit, e.g. "01" step numbers */
-@utility sb-num-display {
-  @apply font-sb-display text-[28px] text-sb-primary;
+/* Accent label: what a project is (IEEE SANER, Open Source...) */
+@utility sb-chip-accent {
+  @apply inline-flex items-center whitespace-nowrap rounded-sb-sm border border-sb-primary/40 bg-sb-primary/8 px-2 py-0.5 font-sb-mono text-[11px] font-medium text-sb-primary;
 }
 
 /* --------------------------------------------------------------------------
-   single-spot heading styles that diverge from the h2/h3 tag default —
-   still @utility, self-contained, nothing else needed to use them
+   surfaces & links
    -------------------------------------------------------------------------- */
 
-/* larger h2, e.g. "Cosa contiene" in WhatsIncluded */
-@utility sb-h2-lg {
-  @apply font-sb-display uppercase leading-[0.93];
-  @apply text-[2.1rem] lg:text-[2.8rem] xl:text-[3rem];
+/* Flat panel with a hairline border */
+@utility sb-panel {
+  @apply rounded-sb-lg border border-sb-border bg-sb-card transition-colors duration-150;
 }
-/* h3 in display style (Anton) instead of the default sans/extrabold, e.g. CreatorSection */
-@utility sb-h3-display {
-  @apply font-sb-display font-normal uppercase leading-[0.93];
-  @apply text-[1.6rem] lg:text-[1.9rem] xl:text-[2.1rem];
+/* Hover state for clickable panels: only the border sharpens */
+@utility sb-panel-hover {
+  @apply hover:border-sb-border-strong hover:bg-sb-secondary;
 }
-/* h2 of the final CTA, its own bigger scale */
-@utility sb-h2-cta {
-  @apply font-sb-display uppercase leading-[0.93];
-  @apply text-[2rem] md:text-[2.4rem] lg:text-[3.2rem] xl:text-[3.4rem];
+/* Text link underlined in lime */
+@utility sb-link {
+  @apply text-sb-foreground underline decoration-sb-primary decoration-2 underline-offset-4 transition-colors hover:text-sb-primary;
+}
+/* Horizontal scroll without a visible scrollbar (mobile nav) */
+@utility sb-no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

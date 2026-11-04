@@ -1,0 +1,107 @@
+---
+import Layout from '@layouts/Layout.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import { projects } from '@data/projects';
+import type { Locale } from '@i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+
+const text = {
+  en: {
+    title: 'Projects | Carmine Calabrese',
+    description: 'Academic research, university projects and personal work (indie games and open-source mods) by Carmine Calabrese.',
+    heading: 'Projects',
+    intro: 'Research and university projects come first, followed by what I build in my free time.',
+    count: 'projects',
+    sections: [
+      {
+        id: 'academic',
+        category: 'academic',
+        title: 'Academic & Research',
+        subtitle: 'IEEE SANER 2026 paper, M.Sc. thesis, team management and security assessments from my courses',
+      },
+      {
+        id: 'personal',
+        category: 'personal',
+        title: 'Personal Projects',
+        subtitle: 'Born from my hobbies: an indie game, a Minecraft mod with 4k+ downloads and this website',
+      },
+    ],
+  },
+  it: {
+    title: 'Progetti | Carmine Calabrese',
+    description: 'Ricerca accademica, progetti universitari e lavori personali (giochi indie e mod open-source) di Carmine Calabrese.',
+    heading: 'Progetti',
+    intro: 'Prima la ricerca e i progetti universitari, poi quello che costruisco nel tempo libero.',
+    count: 'progetti',
+    sections: [
+      {
+        id: 'academic',
+        category: 'academic',
+        title: 'Accademici & Ricerca',
+        subtitle: 'Paper a IEEE SANER 2026, tesi magistrale, gestione di team e assessment di sicurezza dai corsi',
+      },
+      {
+        id: 'personal',
+        category: 'personal',
+        title: 'Progetti Personali',
+        subtitle: 'Nati dai miei hobby: un gioco indie, una mod Minecraft con oltre 4k download e questo sito',
+      },
+    ],
+  },
+}[lang];
+
+const sections = text.sections.map((s) => ({
+  ...s,
+  items: projects.filter((pr) => pr.category === s.category),
+}));
+---
+
+<Layout lang={lang} title={text.title} description={text.description}>
+  <div class="space-y-14">
+    <div class="pb-2">
+      <h1 class="sb-display text-5xl sm:text-7xl">{text.heading}<span class="sb-dot">.</span></h1>
+      <p class="text-sm sm:text-base text-sb-muted-foreground mt-3 max-w-2xl leading-relaxed">{text.intro}</p>
+
+      <div class="flex flex-wrap items-center gap-2 mt-6">
+        {
+          sections.map((s) => (
+            <a
+              href={`#${s.id}`}
+              class="px-3 py-1.5 rounded-sb-md text-xs font-sb-mono border border-sb-border text-sb-muted-foreground hover:text-sb-foreground hover:border-sb-border-strong transition-colors"
+            >
+              &darr; {s.title} ({s.items.length})
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    {
+      sections.map((s, i) => (
+        <section id={s.id} class="scroll-mt-24 space-y-5">
+          <div class="flex items-end justify-between gap-4">
+            <div>
+              <h2 class="sb-section-title flex items-center gap-2">
+                <span class="text-sb-primary font-sb-mono text-sm">0{i + 1}</span>
+                {s.title}
+              </h2>
+              <p class="text-sm text-sb-muted-foreground mt-1">{s.subtitle}</p>
+            </div>
+            <span class="shrink-0 text-xs font-sb-mono text-sb-muted-foreground px-2.5 py-1 rounded-sb-md border border-sb-border">
+              {s.items.length} {text.count}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {s.items.map((project) => <ProjectCard project={project} lang={lang} />)}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Layout>
