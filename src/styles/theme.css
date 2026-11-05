@@ -27,6 +27,9 @@
   --sb-primary-hover: #D6FF5C;
   --sb-primary-foreground: #141A00;
 
+  /* Second accent: supports the lime on hover states, the terminal and the "Now" section */
+  --sb-accent-2: #5B8CFF;
+
   --sb-secondary: #1F1F1F; /* hovered surfaces */
   --sb-secondary-foreground: #F2F2EE;
 
@@ -70,6 +73,7 @@
   --color-sb-primary: var(--sb-primary);
   --color-sb-primary-hover: var(--sb-primary-hover);
   --color-sb-primary-foreground: var(--sb-primary-foreground);
+  --color-sb-accent-2: var(--sb-accent-2);
 
   --color-sb-secondary: var(--sb-secondary);
   --color-sb-secondary-foreground: var(--sb-secondary-foreground);

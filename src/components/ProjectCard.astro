@@ -26,7 +26,7 @@ const description = lang === 'it' ? project.descriptionIt : project.descriptionE
           </span>
         )}
         {project.stats && (
-          <span class="text-xs font-sb-mono text-sb-muted-foreground bg-sb-secondary px-2 py-0.5 rounded-sb-sm border border-sb-border">
+          <span class="sb-chip border-sb-accent-2/40 text-sb-accent-2">
             {project.stats}
           </span>
         )}
@@ -76,7 +76,7 @@ const description = lang === 'it' ? project.descriptionIt : project.descriptionE
           class="focus:outline-hidden inline-flex items-center gap-1.5"
         >
           <span>{project.title}</span>
-          <span class="text-xs text-sb-muted-foreground font-sb-mono transition-colors group-hover:text-sb-primary" aria-hidden="true">&nearr;</span>
+          <span class="text-xs text-sb-muted-foreground font-sb-mono transition-[color,transform] duration-200 group-hover:text-sb-accent-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transform-none" aria-hidden="true">&nearr;</span>
         </a>
       ) : (
         <span>{project.title}</span>

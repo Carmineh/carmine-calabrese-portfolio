@@ -8,6 +8,7 @@ import { projects } from '@data/projects';
 import { skillCategories } from '@data/skills';
 import { getCollection } from 'astro:content';
 import { features } from '@data/site';
+import { now } from '@data/now';
 import type { Locale } from '@i18n/translations';
 import { localePrefix } from '@i18n/translations';
 
@@ -23,7 +24,6 @@ const text = {
     title: 'Carmine Calabrese | Software Engineer & Security Enthusiast',
     description:
       "Personal portfolio of Carmine Calabrese. Master's in Computer Science, software engineering, IEEE research, backend, DevSecOps and game dev.",
-    badge: 'Software engineer · Naples, Italy',
     role: 'Software Engineer & Security Enthusiast',
     bio: [
       "Master's Degree candidate in Computer Science at the University of Salerno, co-author of a paper published at ",
@@ -40,20 +40,16 @@ const text = {
     projectsTitle: 'Featured Projects',
     projectsSubtitle: 'Research and university work first, then personal projects',
     allProjects: 'All projects',
+    nowTitle: 'Now',
     articlesTitle: 'Latest Articles',
     articlesSubtitle: 'What I am learning along the way: pentesting, DevSecOps, software engineering',
     allArticles: 'All articles',
     noArticles: 'First articles coming soon. Stay tuned!',
-    closingEyebrow: 'Open to opportunities',
-    closingTitle: "Let's work together",
-    closingText: 'Looking for a junior software engineer with a security mindset? Download my CV or write to me: I usually reply within a day.',
-    closingEmail: 'Send an email',
   },
   it: {
     title: 'Carmine Calabrese | Software Engineer & Appassionato di Cybersecurity',
     description:
       'Portfolio personale di Carmine Calabrese. Laurea Magistrale in Informatica, software engineering, ricerca IEEE SANER, backend, DevSecOps e game dev.',
-    badge: 'Software engineer · Napoli, Italia',
     role: 'Software Engineer & Appassionato di Cybersecurity',
     bio: [
       "Laureando Magistrale in Informatica all'Università degli Studi di Salerno, co-autore di un paper pubblicato a ",
@@ -70,16 +66,15 @@ const text = {
     projectsTitle: 'Progetti in Evidenza',
     projectsSubtitle: 'Prima ricerca e progetti universitari, poi quelli personali',
     allProjects: 'Tutti i progetti',
+    nowTitle: 'Adesso',
     articlesTitle: 'Ultimi Articoli',
     articlesSubtitle: 'Quello che imparo lungo il percorso: pentesting, DevSecOps, software engineering',
     allArticles: 'Tutti gli articoli',
     noArticles: 'I primi articoli arriveranno presto. Resta sintonizzato!',
-    closingEyebrow: 'Aperto a nuove opportunità',
-    closingTitle: 'Lavoriamo insieme',
-    closingText: 'Cerchi un junior software engineer con attenzione alla sicurezza? Scarica il mio CV o scrivimi: di solito rispondo entro un giorno.',
-    closingEmail: 'Scrivimi una email',
   },
 }[lang];
+
+const nameLines = ['Carmine', 'Calabrese'];
 
 const coreSkills = skillCategories.flatMap((c) => c.items).filter((s) => s.core);
 const featuredProjects = projects.filter((pr) => pr.featured).slice(0, 4);
@@ -92,18 +87,25 @@ const latestArticles = allArticles
 
 <Layout lang={lang} title={text.title} description={text.description}>
   <!-- ================= HERO ================= -->
-  <section class="pt-6 pb-14 sm:pt-14 sm:pb-20">
-    <p class="sb-eyebrow">{text.badge}</p>
-
-    <h1 class="sb-display text-[3.4rem] sm:text-8xl md:text-9xl mt-6">
-      Carmine<br />Calabrese<span class="sb-dot">.</span>
+  <section class="pt-8 pb-14 sm:pt-16 sm:pb-20">
+    <!-- Letters rise in on load (sb-letters); the label keeps the name readable as one word -->
+    <h1 class="sb-display text-[3.4rem] sm:text-8xl" aria-label="Carmine Calabrese">
+      {
+        nameLines.map((word, w) => (
+          <span class="sb-letters block" aria-hidden="true">
+            {[...word].map((ch, i) => (
+              <span style={`--i:${w * 7 + i}`}>{ch}</span>
+            ))}
+          </span>
+        ))
+      }
     </h1>
 
-    <p class="font-sb-display text-xl sm:text-2xl text-sb-foreground mt-8">
+    <p class="font-sb-display text-xl sm:text-2xl text-sb-foreground mt-6">
       {text.role}
     </p>
 
-    <p class="text-sm sm:text-base text-sb-muted-foreground mt-3 max-w-2xl leading-relaxed">
+    <p class="text-sm sm:text-base text-sb-muted-foreground mt-4 max-w-2xl leading-relaxed">
       {text.bio[0]}<span class="text-sb-foreground">{text.bio[1]}</span>{text.bio[2]}<span class="text-sb-foreground">{text.bio[3]}</span>{text.bio[4]}
     </p>
 
@@ -154,7 +156,7 @@ const latestArticles = allArticles
       {
         coreSkills.map((skill) => (
           <div class="sb-panel sb-panel-hover flex items-center gap-3 p-3">
-            <div class="w-9 h-9 rounded-sb-md bg-sb-muted border border-sb-border flex items-center justify-center text-sb-foreground shrink-0">
+            <div class="w-9 h-9 rounded-sb-md bg-sb-muted border border-sb-border flex items-center justify-center text-sb-primary shrink-0">
               <TechIcon name={skill.icon} class="w-[18px] h-[18px]" />
             </div>
             <span class="text-sm font-medium leading-tight text-sb-foreground">{skill.name}</span>
@@ -181,12 +183,33 @@ const latestArticles = allArticles
     </div>
   </section>
 
+  <!-- ================= NOW ================= -->
+  <section class="py-12">
+    <h2 class="sb-section-title mb-6"><span class="font-sb-mono text-sm text-sb-primary align-middle mr-2">03</span>{text.nowTitle}</h2>
+
+    <p class="max-w-3xl font-sb-display text-xl sm:text-3xl font-medium leading-snug tracking-tight text-sb-muted-foreground">
+      {
+        now.sentence[lang].map((part) =>
+          part.tone === 'accent' ? (
+            <span class="text-sb-primary">{part.text}</span>
+          ) : part.tone === 'strong' ? (
+            <span class="text-sb-foreground">{part.text}</span>
+          ) : (
+            part.text
+          )
+        )
+      }
+    </p>
+
+    <p class="mt-5 text-xs font-sb-mono text-sb-muted-foreground">{now.updated[lang]}</p>
+  </section>
+
   <!-- ================= ARTICLES ================= -->
   {features.articles && (
   <section class="py-12">
     <div class="flex items-end justify-between gap-4 mb-6">
       <div>
-        <h2 class="sb-section-title"><span class="font-sb-mono text-sm text-sb-primary align-middle mr-2">03</span>{text.articlesTitle}</h2>
+        <h2 class="sb-section-title"><span class="font-sb-mono text-sm text-sb-primary align-middle mr-2">04</span>{text.articlesTitle}</h2>
         <p class="text-sm text-sb-muted-foreground mt-1">{text.articlesSubtitle}</p>
       </div>
       {latestArticles.length > 0 && (
@@ -210,32 +233,4 @@ const latestArticles = allArticles
     }
   </section>
   )}
-  <!-- ================= CLOSING / CONTACT ================= -->
-  <section class="pt-12 pb-4 border-t border-sb-border">
-    <p class="sb-eyebrow">{text.closingEyebrow}</p>
-    <h2 class="sb-display text-4xl sm:text-6xl mt-4">
-      {text.closingTitle}<span class="sb-dot">.</span>
-    </h2>
-    <p class="text-sm sm:text-base text-sb-muted-foreground mt-4 max-w-xl leading-relaxed">{text.closingText}</p>
-
-    <div class="flex flex-wrap items-center gap-3 mt-8">
-      <CvDownload lang={lang} />
-      <a
-        href="mailto:carmine.calabrese99@gmail.com"
-        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-sb-md border border-sb-border text-sb-foreground text-sm hover:border-sb-border-strong hover:bg-sb-card transition-colors"
-      >
-        <TechIcon name="mail" class="w-4 h-4" />
-        {text.closingEmail}
-      </a>
-      <a
-        href="https://linkedin.com/in/carmine-calabrese-8929bb189"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-sb-md text-sb-muted-foreground hover:text-sb-foreground text-sm transition-colors"
-      >
-        <TechIcon name="linkedin" class="w-4 h-4" />
-        LinkedIn
-      </a>
-    </div>
-  </section>
 </Layout>

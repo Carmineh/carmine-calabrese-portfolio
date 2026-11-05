@@ -42,7 +42,7 @@
    labels
    -------------------------------------------------------------------------- */
 
-/* Small uppercase mono label above sections, e.g. "SOFTWARE ENGINEER → SECURITY" */
+/* Small uppercase mono label for legends and metadata (never above a heading) */
 @utility sb-eyebrow {
   @apply font-sb-mono text-[11px] uppercase tracking-[0.14em] text-sb-muted-foreground;
 }
@@ -61,12 +61,32 @@
 
 /* Flat panel with a hairline border */
 @utility sb-panel {
-  @apply rounded-sb-lg border border-sb-border bg-sb-card transition-colors duration-150;
+  @apply rounded-sb-lg border border-sb-border bg-sb-card transition-[color,background-color,border-color,transform] duration-200 ease-out;
 }
 /* Hover state for clickable panels: only the border sharpens */
 @utility sb-panel-hover {
-  @apply hover:border-sb-border-strong hover:bg-sb-secondary;
+  @apply hover:-translate-y-0.5 hover:border-sb-accent-2/60 hover:bg-sb-secondary motion-reduce:hover:translate-y-0;
 }
+/* Timeline entry (Resume projects, Home "Now"): a 1px hairline with a lime dot.
+   The dot is positioned from the padding edge, which starts after the 1px border:
+   -0.5px puts its centre exactly on the middle of the line. */
+@utility sb-timeline-item {
+  position: relative;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--sb-border);
+  &::before {
+    content: '';
+    position: absolute;
+    left: -0.5px;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: var(--sb-primary);
+    transform: translateX(-50%);
+  }
+}
+
 /* Text link underlined in lime */
 @utility sb-link {
   @apply text-sb-foreground underline decoration-sb-primary decoration-2 underline-offset-4 transition-colors hover:text-sb-primary;
@@ -76,5 +96,46 @@
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   motion (everything rests under prefers-reduced-motion)
+   -------------------------------------------------------------------------- */
+
+/* Hero name: letters rise in one after the other; each letter sets --i */
+@utility sb-letters {
+  & > span {
+    display: inline-block;
+    animation: sb-letter-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i) * 35ms);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    & > span {
+      animation: none;
+    }
+  }
+}
+
+/* Skill level segments fill from the left; each segment sets --i */
+@utility sb-fill {
+  transform-origin: left center;
+  animation: sb-fill-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(120ms + var(--i, 0) * 90ms);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+
+@keyframes sb-letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.25em);
+  }
+}
+@keyframes sb-fill-in {
+  from {
+    transform: scaleX(0);
   }
 }

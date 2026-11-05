@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 
 export default defineConfig(
   {
-    ignores: ['dist/', '.astro/'],
+    ignores: ['dist/', '.astro/', '.claude/'],
   },
   {
     extends: [
