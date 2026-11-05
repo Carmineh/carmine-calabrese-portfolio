@@ -76,7 +76,7 @@ const description = lang === 'it' ? project.descriptionIt : project.descriptionE
           class="focus:outline-hidden inline-flex items-center gap-1.5"
         >
           <span>{project.title}</span>
-          <span class="text-xs text-sb-muted-foreground font-sb-mono opacity-0 group-hover:opacity-100 transition-opacity">&nearr;</span>
+          <span class="text-xs text-sb-muted-foreground font-sb-mono transition-colors group-hover:text-sb-primary" aria-hidden="true">&nearr;</span>
         </a>
       ) : (
         <span>{project.title}</span>
@@ -84,7 +84,7 @@ const description = lang === 'it' ? project.descriptionIt : project.descriptionE
     </h3>
 
     {subtitle && (
-      <p class="text-xs font-sb-mono text-sb-muted-foreground/80 mt-1">
+      <p class="text-xs font-sb-mono text-sb-muted-foreground mt-1">
         {subtitle}
       </p>
     )}
@@ -98,7 +98,7 @@ const description = lang === 'it' ? project.descriptionIt : project.descriptionE
   <!-- Tech Stack -->
   <div class="flex flex-wrap gap-1.5 mt-5 pt-3.5 border-t border-sb-border/60">
     {project.technologies.map((tech) => (
-      <span class="text-[11px] font-sb-mono text-sb-muted-foreground/90 bg-sb-muted px-2 py-0.5 rounded-sb-sm border border-sb-border">
+      <span class="text-[11px] font-sb-mono text-sb-muted-foreground bg-sb-muted px-2 py-0.5 rounded-sb-sm border border-sb-border">
         {tech}
       </span>
     ))}

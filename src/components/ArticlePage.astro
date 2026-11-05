@@ -76,7 +76,7 @@ const formatDate = (date: Date) =>
       </p>
 
       {lang === 'en' && data.lang === 'it' && (
-        <p class="text-xs font-sb-mono text-sb-muted-foreground/80 mt-3">
+        <p class="text-xs font-sb-mono text-sb-muted-foreground mt-3">
           🇮🇹 {t.onlyItalian}
         </p>
       )}
@@ -84,7 +84,7 @@ const formatDate = (date: Date) =>
       {data.tags.length > 0 && (
         <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-sb-border/40">
           {data.tags.map((tag) => (
-            <span class="text-xs font-sb-mono text-sb-muted-foreground/80 bg-sb-card px-2 py-0.5 rounded-sb-md border border-sb-border">
+            <span class="text-xs font-sb-mono text-sb-muted-foreground bg-sb-card px-2 py-0.5 rounded-sb-md border border-sb-border">
               #{tag}
             </span>
           ))}

@@ -32,14 +32,14 @@ const formattedDate = new Intl.DateTimeFormat(dateLocales[lang], {
     {data.readingTime && (
       <>
         <span class="text-sb-border">•</span>
-        <span class="text-xs text-sb-muted-foreground/70 font-sb-mono">
+        <span class="text-xs text-sb-muted-foreground font-sb-mono">
           {data.readingTime}
         </span>
       </>
     )}
 
     {data.lang !== lang && (
-      <span class="text-[10px] font-sb-mono uppercase text-sb-muted-foreground/80 px-1.5 py-0.5 rounded-sb-sm border border-sb-border">
+      <span class="text-[10px] font-sb-mono uppercase text-sb-muted-foreground px-1.5 py-0.5 rounded-sb-sm border border-sb-border">
         {data.lang}
       </span>
     )}
@@ -58,7 +58,7 @@ const formattedDate = new Intl.DateTimeFormat(dateLocales[lang], {
   {data.tags.length > 0 && (
     <div class="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-sb-border/50">
       {data.tags.map((tag) => (
-        <span class="text-[11px] text-sb-muted-foreground/70 font-sb-mono">#{tag}</span>
+        <span class="text-[11px] text-sb-muted-foreground font-sb-mono">#{tag}</span>
       ))}
     </div>
   )}
