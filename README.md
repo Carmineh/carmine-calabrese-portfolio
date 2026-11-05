@@ -6,7 +6,7 @@
 
 The interesting part is over there 👉 **[carmine-calabrese.it](https://carmine-calabrese.it)**
 
-<sub>Projects, skills, CV and the stuff I learn while trying to break things (legally).</sub>
+<sub>Projects, skills, CV and the stuff I learn.</sub>
 
 <br />
 
