@@ -8,6 +8,8 @@ export interface Project {
   technologies: string[];
   repoUrl?: string;
   liveUrl?: string;
+  curseforgeUrl?: string;
+  modrinthUrl?: string;
   paperUrl?: string;
   featured?: boolean;
   highlight?: string;
@@ -138,7 +140,8 @@ export const projects: Project[] = [
     category: "minecraft",
     technologies: ["Java", "NeoForge", "Create", "Gradle", "Datapacks"],
     repoUrl: "https://github.com/Manny-Minecraft/CreateMobGrinding",
-    liveUrl: "https://modrinth.com/mod/create-mob-grinding",
+    curseforgeUrl: "https://www.curseforge.com/minecraft/mc-mods/create-mob-grinding",
+    modrinthUrl: "https://modrinth.com/mod/create-mob-grinding",
     highlight: "Open Source Mod",
     stats: "4,000+ Downloads",
     featured: true,
@@ -154,6 +157,8 @@ export const projects: Project[] = [
     category: "minecraft",
     technologies: ["Java", "NeoForge", "KubeJS", "JSON", "Gradle"],
     repoUrl: "https://github.com/Manny-Minecraft/Productive-Cows",
+    curseforgeUrl: "https://www.curseforge.com/minecraft/mc-mods/productive-cows",
+    modrinthUrl: "https://modrinth.com/mod/productive-cows",
     highlight: "NeoForge Mod",
     featured: false,
   }
