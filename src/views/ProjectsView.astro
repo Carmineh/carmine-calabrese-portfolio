@@ -16,7 +16,7 @@ const text = {
     description: 'Academic research, university projects and personal work (indie games and open-source mods) by Carmine Calabrese.',
     heading: 'Projects',
     intro: 'Research and university projects come first, followed by what I build in my free time.',
-    count: 'projects',
+    count: ['project', 'projects'],
     sections: [
       {
         id: 'academic',
@@ -28,7 +28,14 @@ const text = {
         id: 'personal',
         category: 'personal',
         title: 'Personal Projects',
-        subtitle: 'Born from my hobbies: an indie game, a Minecraft mod with 4k+ downloads and this website',
+        subtitle: 'Born from my passion for video games',
+      },
+      {
+        id: 'minecraft',
+        category: 'minecraft',
+        title: 'Manny Minecraft',
+        href: 'https://github.com/Manny-Minecraft',
+        subtitle: "My main hobby: building addons for a game I've been playing for over 10 years, Minecraft",
       },
     ],
   },
@@ -37,7 +44,7 @@ const text = {
     description: 'Ricerca accademica, progetti universitari e lavori personali (giochi indie e mod open-source) di Carmine Calabrese.',
     heading: 'Progetti',
     intro: 'Prima la ricerca e i progetti universitari, poi quello che costruisco nel tempo libero.',
-    count: 'progetti',
+    count: ['progetto', 'progetti'],
     sections: [
       {
         id: 'academic',
@@ -49,13 +56,22 @@ const text = {
         id: 'personal',
         category: 'personal',
         title: 'Progetti Personali',
-        subtitle: 'Nati dai miei hobby: un gioco indie, una mod Minecraft con oltre 4k download e questo sito',
+        subtitle: 'Nati dalla mia passione per i videogiochi',
+      },
+      {
+        id: 'minecraft',
+        category: 'minecraft',
+        title: 'Manny Minecraft',
+        href: 'https://github.com/Manny-Minecraft',
+        subtitle: 'Il mio hobby principale: creare addon per un gioco a cui gioco da più di 10 anni, Minecraft',
       },
     ],
   },
 }[lang];
 
-const sections = text.sections.map((s) => ({
+type Section = { id: string; category: string; title: string; subtitle: string; href?: string };
+
+const sections = (text.sections as Section[]).map((s) => ({
   ...s,
   items: projects.filter((pr) => pr.category === s.category),
 }));
@@ -88,12 +104,29 @@ const sections = text.sections.map((s) => ({
             <div>
               <h2 class="sb-section-title flex items-center gap-2">
                 <span class="text-sb-primary font-sb-mono text-sm">0{i + 1}</span>
-                {s.title}
+                {s.href ? (
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group/title inline-flex items-center gap-1.5 hover:underline decoration-sb-primary decoration-2 underline-offset-4"
+                  >
+                    {s.title}
+                    <span
+                      class="text-base text-sb-muted-foreground font-sb-mono transition-[color,transform] duration-200 group-hover/title:text-sb-accent-2 group-hover/title:translate-x-0.5 group-hover/title:-translate-y-0.5 motion-reduce:transform-none"
+                      aria-hidden="true"
+                    >
+                      &nearr;
+                    </span>
+                  </a>
+                ) : (
+                  s.title
+                )}
               </h2>
               <p class="text-sm text-sb-muted-foreground mt-1">{s.subtitle}</p>
             </div>
             <span class="shrink-0 text-xs font-sb-mono text-sb-muted-foreground px-2.5 py-1 rounded-sb-md border border-sb-border">
-              {s.items.length} {text.count}
+              {s.items.length} {text.count[s.items.length === 1 ? 0 : 1]}
             </span>
           </div>
 

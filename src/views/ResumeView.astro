@@ -187,7 +187,7 @@ const text = {
 }[lang];
 
 // Personal projects are shown only under "Hobbies & Interests", not among university work
-const hobbyProjects = projects.filter((pr) => pr.category === 'personal');
+const hobbyProjects = projects.filter((pr) => pr.category === 'personal' || pr.category === 'minecraft');
 ---
 
 <Layout lang={lang} title={text.title} description={text.description}>

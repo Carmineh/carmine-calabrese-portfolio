@@ -118,8 +118,8 @@ export const skillCategories: SkillCategory[] = [
     id: 'gamedev',
     titleEn: 'Game Development',
     titleIt: 'Sviluppo Videogiochi',
-    descriptionEn: 'A hobby that turned into real projects: an indie game and a popular Minecraft mod.',
-    descriptionIt: 'Un hobby diventato progetti concreti: un gioco indie e una mod Minecraft molto scaricata.',
+    descriptionEn: 'A hobby that turned into real projects: an indie game and open-source Minecraft mods.',
+    descriptionIt: 'Un hobby diventato progetti concreti: un gioco indie e mod Minecraft open-source.',
     items: [
       { name: 'Unity', level: 3, icon: 'unity', descriptionEn: '2D gameplay, UI and progression systems', descriptionIt: 'Gameplay 2D, UI e sistemi di progressione' },
     ],

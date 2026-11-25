@@ -4,7 +4,7 @@ export interface Project {
   subtitleIt?: string;
   descriptionEn: string;
   descriptionIt: string;
-  category: 'academic' | 'personal';
+  category: 'academic' | 'personal' | 'minecraft';
   technologies: string[];
   repoUrl?: string;
   liveUrl?: string;
@@ -14,7 +14,7 @@ export interface Project {
   stats?: string; // es. "4,000+ Downloads", "Published at IEEE SANER '26"
 }
 
-// Order matters: academic projects come first (priority), then personal ones.
+// Order matters: academic projects first (priority), then personal ones, then the Manny Minecraft mods.
 export const projects: Project[] = [
   // ==========================================
   // PROGETTI ACCADEMICI & RICERCA
@@ -109,19 +109,52 @@ export const projects: Project[] = [
     stats: "Playable Demo on itch.io",
     featured: true,
   },
+
+  // ==========================================
+  // MANNY MINECRAFT (github.com/Manny-Minecraft)
+  // ==========================================
+  {
+    title: "ModSmith",
+    subtitleEn: "AI agent skill for Minecraft mod development",
+    subtitleIt: "Skill per agenti AI per sviluppare mod Minecraft",
+    descriptionEn:
+      "A skill for AI coding agents (Claude Code, Codex) that guides Minecraft Java mod development from idea to playable mod on NeoForge, Fabric and Forge. Its commands plan, scaffold, audit, fix and port mods, checking APIs against the real classes in the Gradle cache instead of guessing, with backups before every change.",
+    descriptionIt:
+      "Una skill per agenti AI di programmazione (Claude Code, Codex) che guida lo sviluppo di mod Minecraft Java, dall'idea alla mod giocabile, su NeoForge, Fabric e Forge. I suoi comandi pianificano, creano, analizzano, correggono e portano le mod su altre versioni, verificando le API sulle classi reali della cache di Gradle invece di tirare a indovinare, con un backup prima di ogni modifica.",
+    category: "minecraft",
+    technologies: ["JavaScript", "Node.js", "Claude Code", "Codex", "NeoForge", "Fabric"],
+    repoUrl: "https://github.com/Manny-Minecraft/ModSmith",
+    highlight: "AI Tooling",
+    featured: false,
+  },
   {
     title: "Create: Mob Grinding",
-    subtitleEn: "Minecraft Mod Addon for Create Mod",
-    subtitleIt: "Mod per Minecraft (Addon per Create)",
+    subtitleEn: "Create addon for NeoForge 1.21.1",
+    subtitleIt: "Addon per Create su NeoForge 1.21.1",
     descriptionEn:
-      "Open-source Minecraft mod built in Java expanding the popular 'Create' tech mod with automated mob grinding mechanisms and kinetic processing. Successfully downloaded and played by over 4,000+ active players in the Minecraft modding community.",
+      "A NeoForge addon for the Create mod that turns mob farming into kinetic machinery: extract souls from vanilla spawners, then power a Rotational Mob Spawner and Grinder with rotational force. Mobs are split into five tiers, with built-in support for Ars Nouveau, Twilight Forest and The Aether, and other mods via datapacks or KubeJS.",
     descriptionIt:
-      "Mod open-source per Minecraft sviluppata in Java, che estende la nota mod tecnologica 'Create' con meccanismi di mob grinding cinetici e automazioni. Conta oltre 4.000+ download attivi all'interno della community modding.",
-    category: "personal",
-    technologies: ["Java", "Minecraft Forge", "Game Modding", "OOP", "Git"],
-    repoUrl: "https://github.com/Carmineh/CreateMobGrinding",
+      "Un addon NeoForge per la mod Create che trasforma le farm di mob in macchinari cinetici: si estraggono le anime dagli spawner vanilla e si alimentano un Rotational Mob Spawner e un Grinder con la forza rotazionale. I mob sono divisi in cinque livelli, con supporto integrato per Ars Nouveau, Twilight Forest e The Aether, e per altre mod tramite datapack o KubeJS.",
+    category: "minecraft",
+    technologies: ["Java", "NeoForge", "Create", "Gradle", "Datapacks"],
+    repoUrl: "https://github.com/Manny-Minecraft/CreateMobGrinding",
+    liveUrl: "https://modrinth.com/mod/create-mob-grinding",
     highlight: "Open Source Mod",
     stats: "4,000+ Downloads",
     featured: true,
+  },
+  {
+    title: "Productive Cows",
+    subtitleEn: "Data-driven resource farming for NeoForge 1.21.1",
+    subtitleIt: "Farming di risorse data-driven per NeoForge 1.21.1",
+    descriptionEn:
+      "A data-driven NeoForge mod for automating resource gathering with cows: breed custom material cows, milk them in Cow Cages and process the result into resources. New cows are added with a JSON file or a KubeJS script, without touching the code, and the mod is built to work alongside Create, Mekanism and the Thermal Series.",
+    descriptionIt:
+      "Una mod NeoForge data-driven per automatizzare la raccolta di risorse con le mucche: si allevano mucche di materiali diversi, si mungono nelle Cow Cage e si trasforma il risultato in risorse. Nuove mucche si aggiungono con un file JSON o uno script KubeJS, senza toccare il codice, e la mod è pensata per funzionare con Create, Mekanism e la serie Thermal.",
+    category: "minecraft",
+    technologies: ["Java", "NeoForge", "KubeJS", "JSON", "Gradle"],
+    repoUrl: "https://github.com/Manny-Minecraft/Productive-Cows",
+    highlight: "NeoForge Mod",
+    featured: false,
   }
 ];
